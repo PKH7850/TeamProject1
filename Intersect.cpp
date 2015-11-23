@@ -158,7 +158,7 @@ void HelloWorld::intersectPlayer() {
 					damage = 3;
 					count = 2;
 				}
-				else if (count == 2) {
+				else if (count >= 2) {
 					this->unschedule(schedule_selector(HelloWorld::upGradeP3));
 					this->unschedule(schedule_selector(HelloWorld::upGradeF3));
 					this->unschedule(schedule_selector(HelloWorld::upGradeL3));
@@ -166,6 +166,7 @@ void HelloWorld::intersectPlayer() {
 					this->unschedule(schedule_selector(HelloWorld::upGradeL4));
 					this->schedule(schedule_selector(HelloWorld::upGradeP4), 0.15f);
 					damage = 4;
+					count++;
 				}
 			}
 			else if (eitem == item2)
@@ -183,7 +184,7 @@ void HelloWorld::intersectPlayer() {
 					damage = 3;
 					count = 2;
 				}
-				else if (count == 2) {
+				else if (count >= 2) {
 					this->unschedule(schedule_selector(HelloWorld::upGradeP3));
 					this->unschedule(schedule_selector(HelloWorld::upGradeF3));
 					this->unschedule(schedule_selector(HelloWorld::upGradeL3));
@@ -191,6 +192,7 @@ void HelloWorld::intersectPlayer() {
 					this->unschedule(schedule_selector(HelloWorld::upGradeL4));
 					this->schedule(schedule_selector(HelloWorld::upGradeF4), 0.15f);
 					damage = 4;
+					count++;
 				}
 			}
 			else if (eitem == item3)
@@ -208,7 +210,7 @@ void HelloWorld::intersectPlayer() {
 					damage = 3;
 					count = 2;
 				}
-				else if (count == 2) {
+				else if (count >= 2) {
 					this->unschedule(schedule_selector(HelloWorld::upGradeP3));
 					this->unschedule(schedule_selector(HelloWorld::upGradeF3));
 					this->unschedule(schedule_selector(HelloWorld::upGradeL3));
@@ -216,8 +218,15 @@ void HelloWorld::intersectPlayer() {
 					this->unschedule(schedule_selector(HelloWorld::upGradeF4));
 					this->schedule(schedule_selector(HelloWorld::upGradeL4), 0.15f);
 					damage = 4;
+					count++;
 				}
 			}
+			
+			if (count == 4) {
+				this->schedule(schedule_selector(HelloWorld::upGradeSub), 0.15f);
+				count = 2;
+			}
+
 			this->unschedule(schedule_selector(HelloWorld::setMissile));
 			vItem.eraseObject(eitem);
 			this->removeChild(eitem);
