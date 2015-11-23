@@ -20,8 +20,8 @@ bool MenuScene::init()
 
 	SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm.mp3", true);
 	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("bgm.mp3");
-	auto bg = Sprite::create("MENU_BK.jpg");
-	bg->setPosition(Point(300, 500));
+	auto bg = Sprite::create("menu.png");
+	bg->setPosition(Point(650, 360));
 	this->addChild(bg);
 
 	auto startLabel = MenuItemFont::create("Game Start", CC_CALLBACK_1(MenuScene::StartCallback, this));
