@@ -1,10 +1,10 @@
 #include "HelloWorldScene.h"
-
+//power overwhelming
 void HelloWorld::setEnemy(float fDelta) {
 
-	float randX = rand() % (1280 - TAG_PADDING_WIDTH * 2) + TAG_PADDING_WIDTH;        // ÀûÀÇ xÁÂÇ¥°ªÀ» ÁÂ¿ì È­¸é³¡ÀÇ °£°ÝÀ»
+	float randX = rand() % (1280 - TAG_PADDING_WIDTH * 2) + TAG_PADDING_WIDTH;        // ï¿½ï¿½ï¿½ï¿½ xï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½Â¿ï¿½ È­ï¿½é³¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	float randX2 = rand() % (1280 - TAG_PADDING_WIDTH * 2) + TAG_PADDING_WIDTH;
-	// 50¸¸Å­¾¿Àº ¹ß»ýÇÏÁö ¾Êµµ·Ï ¼³Á¤
+	// 50ï¿½ï¿½Å­ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	auto sEnemy = SpriteEnemy::create();
 	auto sEnemy2 = SpriteEnemy::create();
 
@@ -16,22 +16,22 @@ void HelloWorld::setEnemy(float fDelta) {
 	this->addChild(sEnemy);
 	this->addChild(sEnemy2);
 
-	int random = rand() % 100;        //100% È®·üÀ» ÀúÀå
+	int random = rand() % 100;        //100% È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	int random2 = rand() % 100;
-	float speed = 4.0f;                    //ÀûÀÌ ³»·Á¿À´Â ¼Óµµ¸¦ ÀúÀå
-	if (random < 60) {                //60ÇÁ·Î È®·ü·Î ¹ß»ý
+	float speed = 4.0f;                    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	if (random < 60) {                //60ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½
 		sEnemy->type = 1;
 		sEnemy->hp = 5;
 		speed = 5.0f;
 	}
-	else if (random < 85) {            //20ÇÁ·Î È®·ü·Î ¹ß»ý
+	else if (random < 85) {            //20ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½
 		sEnemy->type = 2;
 		sEnemy->hp = 7;
 		sEnemy->setScaleX(1.7f);
 		speed = 9.0f;
 	}
 	else if (random <70)
-	{                            //15ÇÁ·Î È®·ü·Î ¹ß»ý
+	{                            //15ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½
 		sEnemy->type = 3;
 		sEnemy->hp = 3;
 		sEnemy->setScaleY(1.5f);
@@ -90,16 +90,16 @@ void HelloWorld::update(float fDelta) {
 
 	auto sPlayer = (Sprite*)this->getChildByTag(TAG_SPRITE_PLAYER);
 
-	for (SpriteEnemy* enemy : vEnemy) {        //¹éÅÍ for¹®
-		if (enemy->type == 2) {                //Àû
-			if (!enemy->isAttack && enemy->getPositionY() < winSize.height * 3 / 4) {    //falseÀÌ°í, 2/3ÁöÁ¡ÀÏ¶§ ÀûÀÌ °ø°Ý
+	for (SpriteEnemy* enemy : vEnemy) {        //ï¿½ï¿½ï¿½ï¿½ forï¿½ï¿½
+		if (enemy->type == 2) {                //ï¿½ï¿½
+			if (!enemy->isAttack && enemy->getPositionY() < winSize.height * 3 / 4) {    //falseï¿½Ì°ï¿½, 2/3ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				enemy->isAttack = true;
 				attackEnemy_2(enemy->getPosition());
 			}
 		}
 		else if (enemy->type == 3) {
-			if (!enemy->isAttack &&                                            //falseÀÏ¶§ ÀûÀÌ ÇÃ·¹ÀÌ¾î¿Í ¸¸³µÀ»¶§ °ø°Ý
-				sPlayer->getPositionX() > enemy->getPositionX() - 20 &&        // ÀûÀÇ °ø°Ý¹üÀ§ ¡¾20
+			if (!enemy->isAttack &&                                            //falseï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				sPlayer->getPositionX() > enemy->getPositionX() - 20 &&        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ ï¿½ï¿½20
 				sPlayer->getPositionX() < enemy->getPositionX() + 20) {
 				enemy->isAttack = true;
 				attackEnemy_2(enemy->getPosition());
@@ -107,8 +107,8 @@ void HelloWorld::update(float fDelta) {
 		}
 		else if (enemy->type == 4)
 		{
-			if (!enemy->isAttack &&                                            //falseÀÏ¶§ ÀûÀÌ ÇÃ·¹ÀÌ¾î¿Í ¸¸³µÀ»¶§ °ø°Ý
-				sPlayer->getPositionX() > enemy->getPositionX() - 30 &&        // ÀûÀÇ °ø°Ý¹üÀ§ ¡¾20
+			if (!enemy->isAttack &&                                            //falseï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				sPlayer->getPositionX() > enemy->getPositionX() - 30 &&        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ ï¿½ï¿½20
 				sPlayer->getPositionX() < enemy->getPositionX() + 30) {
 				enemy->isAttack = true;
 				attackEnemy_2(enemy->getPosition());
@@ -116,72 +116,71 @@ void HelloWorld::update(float fDelta) {
 		}
 
 	}//for vEnemy
-	for (SpriteEnemy* enemy2 : vEnemy2) {        //¹éÅÍ for¹®
-		if (!enemy2->isAttack && enemy2->getPositionY() < winSize.height * 3 / 4) {    //falseÀÌ°í, 2/3ÁöÁ¡ÀÏ¶§ ÀûÀÌ °ø°Ý
+	for (SpriteEnemy* enemy2 : vEnemy2) {        //ï¿½ï¿½ï¿½ï¿½ forï¿½ï¿½
+		if (!enemy2->isAttack && enemy2->getPositionY() < winSize.height * 3 / 4) {    //falseï¿½Ì°ï¿½, 2/3ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			enemy2->isAttack = true;
 			attackEnemy_3(enemy2->getPosition());
 		}
 	}
 
-#ifndef _TEST_DEBUG            //Å×½ºÆ® µð¹ö±ë¿ë, ÇØ´õÆÄÀÏÀÇ #define _TEST_DEBUG¸¦ ÁÖ¼®ÇÏ¸é µð¹ö±ëÇÑ´Ù.
-	//TODO: Å×½ºÆ® µð¹ö±ë
-	intersectMissile();        //ÇÃ·¹ÀÌ¾î ¹Ì»çÀÏ°ú ÀûÀÇ Ãæµ¹Ã¼Å©
-	intersectPlayer();        //Àû ¹Ì»çÀÏ°ú ÇÃ·¹ÀÌ¾î Ãæµ¹ Ã¼Å©
+#ifndef _TEST_DEBUG            //ï¿½×½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ #define _TEST_DEBUGï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	//TODO: ï¿½×½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	intersectMissile();        //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ì»ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã¼Å©
+	intersectPlayer();        //ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ï°ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½æµ¹ Ã¼Å©
 	intersectEnemy();
 #endif
 }
 
 void HelloWorld::attackEnemy_2(Vec2 pos) {
 	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
-	for (int i = 0; i < 5; i++) {                            //5°³ÀÇ ¹Ì»çÀÏÀ» ¹æ»çÇüÀ¸·Î ½ð´Ù
+	for (int i = 0; i < 5; i++) {                            //5ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		auto spr = Sprite::create("fire_1.png");
 		spr->setPosition(pos);
 		this->addChild(spr);
-		vEMissile.pushBack(spr);                            //¹éÅÍ¿¡ ÀûÀÇ ¹Ì»çÀÏ ÀúÀå
+		vEMissile.pushBack(spr);                            //ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		spr->runAction(Sequence::create(
 			MoveBy::create(3.0f, Vec2(-400 + i * 200, -winSize.height)),
-			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //¹Ì»çÀÏ Á¦°Å ÇÔ¼ö È£Ãâ
+			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½
 			NULL));
 	}
 }
 
 void HelloWorld::attackEnemy_3(Vec2 pos) {
 	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
-	for (int i = 0; i < 3; i++) {                            
+	for (int i = 0; i < 3; i++) {
 		auto spr = Sprite::create("fire_1.png");
 		spr->setPosition(pos + Vec2(0, -30 * i));
 		this->addChild(spr);
-		vEMissile.pushBack(spr);                            //¹éÅÍ¿¡ ÀûÀÇ ¹Ì»çÀÏ ÀúÀå
+		vEMissile.pushBack(spr);                            //ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		spr->runAction(Sequence::create(
 			DelayTime::create(0.1f * i),
 			MoveBy::create(1.5f, Vec2(0, -winSize.height)),
-			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //¹Ì»çÀÏ Á¦°Å ÇÔ¼ö È£Ãâ
+			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½
 			NULL));
 	}
 }
 
 void HelloWorld::attackEnemy_4(Vec2 pos) {
 	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
-	for (int i = 0; i < 10; i++) {                            //5°³ÀÇ ¹Ì»çÀÏÀ» ¹æ»çÇüÀ¸·Î ½ð´Ù
+	for (int i = 0; i < 10; i++) {                            //5ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		auto spr = Sprite::create("fire_1.png");
 		spr->setPosition(pos + Vec2(0, -30 * i));
 		this->addChild(spr);
-		vEMissile.pushBack(spr);                            //¹éÅÍ¿¡ ÀûÀÇ ¹Ì»çÀÏ ÀúÀå
+		vEMissile.pushBack(spr);                            //ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		spr->runAction(Sequence::create(
 			DelayTime::create(0.1f * i),
 			MoveBy::create(1.5f, Vec2(0, -winSize.height)),
-			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //¹Ì»çÀÏ Á¦°Å ÇÔ¼ö È£Ãâ
+			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½
 			NULL));
 	}
 }
 void HelloWorld::resetAttack(Ref* pSender) {
 	auto spr = (Sprite*)pSender;
-	vEMissile.eraseObject(spr);        //¹éÅÍ¿¡¼­ ¹Ì»çÀÏ Á¦°Å
-	this->removeChild(spr);            //È­¸é¿¡¼­ ¹Ì»çÀÏ Á¦°Å
+	vEMissile.eraseObject(spr);        //ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	this->removeChild(spr);            //È­ï¿½é¿¡ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
 }
-
