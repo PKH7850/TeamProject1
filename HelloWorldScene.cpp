@@ -20,10 +20,6 @@ bool HelloWorld::init()
 	winSize = Director::getInstance()->getWinSize();
 	srand((int)time(NULL));
 
-	mLeftJoystick = Joystick::create("CloseSelected.png", "DOKDO.png");
-	mLeftJoystick->setPosition(Vec2(150, 150));
-	addChild(mLeftJoystick, 10);
-
 	listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
