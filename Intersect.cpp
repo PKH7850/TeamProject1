@@ -223,7 +223,7 @@ void HelloWorld::intersectPlayer() {
 			}
 			
 			if (count == 4) {
-				this->schedule(schedule_selector(HelloWorld::upGradeSub), 0.15f);
+				this->schedule(schedule_selector(HelloWorld::upGradeSub), 1.0f);
 				count = 2;
 			}
 

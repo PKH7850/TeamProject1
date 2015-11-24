@@ -135,10 +135,21 @@ void HelloWorld::upGradeSub(float fDelta) {
 	auto sMissile = Sprite::create("sub2.png");
 	vMissile.pushBack(sMissile);                                            //백터에 미사일 Sprite 저장
 	sMissile->setPosition(Vec2(sPlayer->getPosition() + Vec2(0, 60)));        //플레이어의 위치에서 y축으로 60만큼 앞에서 미사일 발사
-	sMissile->runAction(Sequence::create(
-		MoveBy::create(4.0f, Vec2(0, winSize.width)),                        //미사일이 2초동안 상단으로 이동 후
-		CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetMissile, this)),    //미사일을 제거하는 함수 호출
-		NULL));
+      //백터 for문
+	for (SpriteEnemy* enemy : vEnemy) {
+		if (enemy->getPositionY() != NULL && enemy->getPositionY() > sPlayer->getPositionY()) {
+			sMissile->runAction(Sequence::create(
+				MoveBy::create(10.0f, Vec2(-5 * (sPlayer->getPosition() - enemy->getPosition()))),                        //미사일이 2초동안 상단으로 이동 후
+				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetMissile, this)),    //미사일을 제거하는 함수 호출
+				NULL));
+		}
+		else {
+			sMissile->runAction(Sequence::create(
+				MoveBy::create(10.0f, Vec2(0, winSize.width)),                        //미사일이 2초동안 상단으로 이동 후
+				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetMissile, this)),    //미사일을 제거하는 함수 호출
+				NULL));
+		}
+	}
 	this->addChild(sMissile);
 }
 

@@ -3,14 +3,14 @@
 void HelloWorld::setEnemy(float fDelta) {
 
    float randX = rand() % (1280 - TAG_PADDING_WIDTH * 2) + TAG_PADDING_WIDTH;        // 적의 x좌표값을 좌우 화면끝의 간격을
-   float randX2 = rand() % (1280 - TAG_PADDING_WIDTH * 2) + TAG_PADDING_WIDTH;
+   float rand2X = rand() % (1280 - TAG_PADDING_WIDTH * 2) + TAG_PADDING_WIDTH;
    // 50만큼씩은 발생하지 않도록 설정
    auto sEnemy = SpriteEnemy::create();
    auto sEnemy2 = SpriteEnemy::create();
 
    sEnemy->setPosition(randX, winSize.height + 100);
    sEnemy->isAttack = false;
-   sEnemy2->setPosition(randX2, winSize.height + 100);
+   sEnemy2->setPosition(rand2X, winSize.height + 100);
    sEnemy2->isAttack = false;
 
    this->addChild(sEnemy);
@@ -138,15 +138,16 @@ void HelloWorld::update(float fDelta) {
 
 void HelloWorld::attackEnemy_1(Vec2 pos) {
 	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
+
 	for (int i = 0; i < 3; i++) {
-		auto spr = Sprite::create("fire_1.png");
+		auto spr = Sprite::create("mis.png");
 		spr->setPosition(pos + Vec2(0, -30 * i));
 		this->addChild(spr);
 		vEMissile.pushBack(spr);                            //백터에 적의 미사일 저장
-
+		
 		spr->runAction(Sequence::create(
 			DelayTime::create(0.1f * i),
-			MoveBy::create(1.5f, Vec2(0, -winSize.height)),
+			MoveBy::create(3.0f, Vec2(-5*(pos-sPlayer->getPosition()))),
 			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
 			NULL));
 	}
@@ -198,10 +199,9 @@ void HelloWorld::attackEnemy_4(Vec2 pos) {
          NULL));
    }
 }
+
 void HelloWorld::resetAttack(Ref* pSender) {
    auto spr = (Sprite*)pSender;
    vEMissile.eraseObject(spr);        //백터에서 미사일 제거
    this->removeChild(spr);            //화면에서 미사일 제거
-
-
 }
