@@ -83,10 +83,11 @@ void HelloWorld::initGameData() {
 	vEnemy.clear();
 	vItem.clear();
 	vEnemy2.clear();
+	vMidBoss.clear();
 
 	isTitle = true;        //클릭 불가
-	isPlayerDie = false;        //플레이어가 죽으면 true
-	isGameover = false;            //게임오버가 되면 true
+	isPlayerDie = false;   //플레이어가 죽으면 true
+	isGameover = false;    //게임오버가 되면 true
 
 }
 void HelloWorld::initBG() {
@@ -116,7 +117,7 @@ void HelloWorld::initBG() {
 	}
 }
 void HelloWorld::initTitle() {
-	auto label = Label::createWithTTF("MiniFlight", "Schwarzwald Regular.ttf", 140);
+	auto label = Label::createWithTTF("TeamProject", "Schwarzwald Regular.ttf", 140);
 	label->setTextColor(Color4B::BLUE);
 	label->enableOutline(Color4B::WHITE, 3);
 	label->setPosition(Vec2(winSize.width / 2, winSize.height / 2));
@@ -131,7 +132,7 @@ void HelloWorld::setTitle() {
 	label->runAction(FadeOut::create(1.0f));
 
 	auto sPlayer = (Sprite*)this->getChildByTag(TAG_SPRITE_PLAYER);        //화면 아래에서 안보이다가 Title이 사라지면 앞으로 나오는 액션
-	sPlayer->runAction(MoveBy::create(1.0f, Vec2(0, 250)));
+	sPlayer->runAction(MoveBy::create(1.0f, Vec2(0, 100)));
 	sPlayer->setVisible(true);        //다시 시작시 죽은 플레이어 새로 생성
 
 	this->schedule(schedule_selector(HelloWorld::setMissile), 0.15f);    //플레이어가 미사일 쏘는 간격
@@ -253,6 +254,9 @@ void HelloWorld::resetGameover()        //게임을 다시시작함
 
 	for (SpriteEnemy* enemy2 : vEnemy2) {
 		this->removeChild(enemy2);
+	}
+	for (MiddleBoss* enemy3 : vMidBoss){
+		this->removeChild(enemy3);
 	}
 	for (Sprite* missile : vMissile) {
 		this->removeChild(missile);

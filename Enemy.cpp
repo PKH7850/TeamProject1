@@ -156,6 +156,7 @@ void HelloWorld::update(float fDelta) {
 	      enemy2->isAttack = true;
 	      attackEnemy_3(enemy2->getPosition());
 	   }
+
 	}
 	
 #ifndef _TEST_DEBUG            //테스트 디버깅용, 해더파일의 #define _TEST_DEBUG를 주석하면 디버깅한다.

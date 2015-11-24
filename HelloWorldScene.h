@@ -122,6 +122,7 @@ public:
 	virtual void onEnter();
 	virtual void onExit();
 	void reZorder(cocos2d::Sprite* pSender);
+	void goBack();
 };
 
 #endif // __HELLOWORLD_SCENE_H__

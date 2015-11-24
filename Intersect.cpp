@@ -147,6 +147,33 @@ void HelloWorld::intersectMissile() {        //플레이어 미사일 vs 적
 			}
 		}
 
+		for (MiddleBoss* enemy : vMidBoss) {
+			Rect rectEnemy = enemy->getBoundingBox();
+			if (rectMissile.intersectsRect(rectEnemy)) {
+				SimpleAudioEngine::getInstance()->playEffect("boom2.wav");        //적이 미사일에 맞을때 이펙트음
+				enemy->hp = (enemy->hp) - damage;
+				if (enemy->hp <= 0) {
+					enemycount++;
+					SimpleAudioEngine::getInstance()->playEffect("boom2.wav");    //적이 죽을때 이펙트음
+					auto particle = ParticleSystemQuad::create("explosion.plist");
+					this->addChild(particle);
+
+					particle->setPosition(enemy->getPosition());
+					particle->runAction(Sequence::create(        //파티클 생성후 2초후에 삭제
+						DelayTime::create(2.0f),
+						RemoveSelf::create(),
+						NULL));
+					vMidBoss.eraseObject(enemy);    //백터에서 적 제거
+					this->removeChild(enemy);    //적 스프라이트 제거
+				}
+
+				vMissile.eraseObject(missile);    //백터에서 미사일 제거
+				this->removeChild(missile);        //미사일 스프라이트 제거
+				isCrash = true;
+				break;
+			}
+		}
+
 		if (isCrash) {
 			isCrash = false;
 			break;
@@ -307,6 +334,27 @@ void HelloWorld::intersectEnemy() {        //플레이어와 적이 충돌
 			vEMissile.eraseObject(enemy2);            //적의 미사일을 지운다.
 			this->removeChild(enemy2);
 
+			resetPlayer();                            //플레이어가 죽을때 호출
+			return;
+		}
+	}
+
+	for (Sprite* enemy3 : vMidBoss) {
+		Rect renemy = enemy3->getBoundingBox();        //적 충돌박스
+		if (rPlayer.intersectsRect(renemy)) {
+			SimpleAudioEngine::getInstance()->playEffect("explosion.wav");
+
+			auto particle = ParticleSystemQuad::create("explosion.plist");
+			particle->setPosition(enemy3->getPosition());
+			this->addChild(particle);
+
+			particle->runAction(Sequence::create(
+				DelayTime::create(2.0f),
+				RemoveSelf::create(),
+				NULL));
+
+			vEMissile.eraseObject(enemy3);            //적의 미사일을 지운다.
+			this->removeChild(enemy3);
 			resetPlayer();                            //플레이어가 죽을때 호출
 			return;
 		}
