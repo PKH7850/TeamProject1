@@ -72,6 +72,36 @@ void HelloWorld::setEnemy(float fDelta) {
    sEnemy2->runAction(Sequence::create(
       MoveBy::create(speed, Vec2(0, -winSize.height - 200)),
       CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetEnemy2, this)), NULL));
+   
+   if (enemycount == 3 && midbosscount == 0)
+   {
+	   midbosscount++;
+	   speed = 0;
+	   auto midBoss = MiddleBoss::create();
+	   midBoss->hp = 100;
+	   midBoss->setPosition(winSize.width/2, winSize.height - 100);
+	   midBoss->isAttack = false;
+
+	   this->addChild(midBoss);
+
+	   vMidBoss.pushBack(midBoss);
+
+	   auto texture3 = Director::getInstance()->getTextureCache()->addImage("midboss.png");
+	  //////////////////////////이쪽은 스프라이트 이미지 준비되면 애니메이션 적용.
+	   
+	   auto animation3 = Animation::create();
+	   animation3->setDelayPerUnit(1000.0f);
+	   for (int i = 0; i < 11; i++) {
+		   animation3->addSpriteFrameWithTexture(texture3, Rect(96 * i, 0, 230, 180));
+	   }
+	   auto animate3 = Animate::create(animation3);
+	   midBoss->runAction(RepeatForever::create(animate3));
+	   
+	   //sEnemy->runAction(Sequence::create(
+		  // MoveBy::create(speed, Vec2(0, -winSize.height - 200)),
+		   //CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetEnemy, this)), NULL));
+
+   }
 }
 
 void HelloWorld::resetEnemy(Ref* pSender) {
