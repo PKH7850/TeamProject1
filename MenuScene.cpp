@@ -37,7 +37,8 @@ bool MenuScene::init()
 void MenuScene::StartCallback(cocos2d::Ref* pSender)
 {
 	SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
-	Director::getInstance()->replaceScene(HelloWorld::createScene());
+	auto scene = TransitionFadeBL::create(1.0f, HelloWorld::createScene());
+	Director::getInstance()->replaceScene(scene);
 }
 
 void MenuScene::EndCallback(cocos2d::Ref* pSender)
