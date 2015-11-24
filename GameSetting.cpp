@@ -31,6 +31,26 @@ void HelloWorld::onEnter()
 	{
 		auto target = static_cast<Sprite*>(event->getCurrentTarget());
 		target->setPosition(target->getPosition() + touch->getDelta());
+		CCPoint touchPoint = touch->getLocation();
+		if (touchPoint.x > 1250)
+		{
+			touchPoint.x = 1250;
+		}
+		else if (touchPoint.x < 10)
+		{
+			touchPoint.x = 10;
+		}
+		else if (touchPoint.y < 300)
+		{
+			touchPoint.y = 300;
+		}
+		else if (touchPoint.y > 600)
+		{
+			touchPoint.y = 600;
+		}
+		CCPoint newLocation = ccp(touchPoint.x, target->getPosition().y);
+
+		target->setPosition(newLocation);
 	};
 
 	listener->onTouchEnded = [=](Touch* touch, Event* event)
@@ -201,9 +221,9 @@ void HelloWorld::setGameover() {        //게임오버시 게임오버와 다시시작 타이틀�
 	label_1->runAction(Sequence::create(
 		Show::create(),
 		Spawn::create(
-		ScaleTo::create(1.0f, 1.0f),
-		RotateBy::create(1.0f, 360 * 5),
-		NULL),
+			ScaleTo::create(1.0f, 1.0f),
+			RotateBy::create(1.0f, 360 * 5),
+			NULL),
 		NULL));
 
 	auto label_2 = (Label*)this->getChildByTag(TAG_LABEL_GAMEOVER_2);
@@ -231,7 +251,7 @@ void HelloWorld::resetGameover()        //게임을 다시시작함
 		this->removeChild(enemy);
 	}
 
-	for (SpriteEnemy* enemy2 : vEnemy2){
+	for (SpriteEnemy* enemy2 : vEnemy2) {
 		this->removeChild(enemy2);
 	}
 	for (Sprite* missile : vMissile) {
