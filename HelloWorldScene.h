@@ -34,7 +34,6 @@ public:
 class HelloWorld : public cocos2d::Layer
 {
 public:
-	Joystick* mLeftJoystick;
 	CCSprite *sPlayer;
 	static cocos2d::Scene* createScene();
 	virtual bool init();
