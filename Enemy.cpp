@@ -86,49 +86,70 @@ void HelloWorld::resetEnemy2(Ref* pSender) {
 }
 
 void HelloWorld::update(float fDelta) {
-   if (isPlayerDie)return;
+	if (isPlayerDie)return;
 
-   auto sPlayer = (Sprite*)this->getChildByTag(TAG_SPRITE_PLAYER);
+	auto sPlayer = (Sprite*)this->getChildByTag(TAG_SPRITE_PLAYER);
 
-   for (SpriteEnemy* enemy : vEnemy) {        //백터 for문
-      if (enemy->type == 2) {                //적
-         if (!enemy->isAttack && enemy->getPositionY() < winSize.height * 3 / 4) {    //false이고, 2/3지점일때 적이 공격
-            enemy->isAttack = true;
-            attackEnemy_2(enemy->getPosition());
-         }
-      }
-      else if (enemy->type == 3) {
-         if (!enemy->isAttack &&                                            //false일때 적이 플레이어와 만났을때 공격
-            sPlayer->getPositionX() > enemy->getPositionX() - 20 &&        // 적의 공격범위 ±20
-            sPlayer->getPositionX() < enemy->getPositionX() + 20) {
-            enemy->isAttack = true;
-            attackEnemy_2(enemy->getPosition());
-         }
-      }
-      else if (enemy->type == 4)
-      {
-         if (!enemy->isAttack &&                                            //false일때 적이 플레이어와 만났을때 공격
-            sPlayer->getPositionX() > enemy->getPositionX() - 30 &&        // 적의 공격범위 ±20
-            sPlayer->getPositionX() < enemy->getPositionX() + 30) {
-            enemy->isAttack = true;
-            attackEnemy_2(enemy->getPosition());
-         }
-      }
-
-   }//for vEnemy
-   for (SpriteEnemy* enemy2 : vEnemy2) {        //백터 for문
-      if (!enemy2->isAttack && enemy2->getPositionY() < winSize.height * 3 / 4) {    //false이고, 2/3지점일때 적이 공격
-         enemy2->isAttack = true;
-         attackEnemy_3(enemy2->getPosition());
-      }
-   }
-
+	for (SpriteEnemy* enemy : vEnemy) {        //백터 for문
+		if (enemy->type == 1) {
+			if (!enemy->isAttack && enemy->getPositionY() < winSize.height * 3 / 4) {
+			   enemy->isAttack = true;
+			   attackEnemy_1(enemy->getPosition());
+			}
+		}
+		else if (enemy->type == 2) {                //적
+		  if (!enemy->isAttack && enemy->getPositionY() < winSize.height * 3 / 4) {    //false이고, 2/3지점일때 적이 공격
+		     enemy->isAttack = true;
+		     attackEnemy_2(enemy->getPosition());
+		  }
+		}
+		else if (enemy->type == 3) {
+		  if (!enemy->isAttack &&                                            //false일때 적이 플레이어와 만났을때 공격
+		     sPlayer->getPositionX() > enemy->getPositionX() - 20 &&        // 적의 공격범위 ±20
+		     sPlayer->getPositionX() < enemy->getPositionX() + 20) {
+		     enemy->isAttack = true;
+		     attackEnemy_2(enemy->getPosition());
+		  }
+		}
+		else if (enemy->type == 4)
+		{
+			if (!enemy->isAttack &&                                            //false일때 적이 플레이어와 만났을때 공격
+				sPlayer->getPositionX() > enemy->getPositionX() - 30 &&        // 적의 공격범위 ±20
+				sPlayer->getPositionX() < enemy->getPositionX() + 30) {
+				enemy->isAttack = true;
+				 attackEnemy_2(enemy->getPosition());
+			}
+		}
+	}//for vEnemy
+	for (SpriteEnemy* enemy2 : vEnemy2) {        //백터 for문
+	   if (!enemy2->isAttack && enemy2->getPositionY() < winSize.height * 3 / 4) {    //false이고, 2/3지점일때 적이 공격
+	      enemy2->isAttack = true;
+	      attackEnemy_3(enemy2->getPosition());
+	   }
+	}
+	
 #ifndef _TEST_DEBUG            //테스트 디버깅용, 해더파일의 #define _TEST_DEBUG를 주석하면 디버깅한다.
    //TODO: 테스트 디버깅
    intersectMissile();        //플레이어 미사일과 적의 충돌체크
    intersectPlayer();        //적 미사일과 플레이어 충돌 체크
    intersectEnemy();
 #endif
+}
+
+void HelloWorld::attackEnemy_1(Vec2 pos) {
+	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
+	for (int i = 0; i < 3; i++) {
+		auto spr = Sprite::create("fire_1.png");
+		spr->setPosition(pos + Vec2(0, -30 * i));
+		this->addChild(spr);
+		vEMissile.pushBack(spr);                            //백터에 적의 미사일 저장
+
+		spr->runAction(Sequence::create(
+			DelayTime::create(0.1f * i),
+			MoveBy::create(1.5f, Vec2(0, -winSize.height)),
+			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
+			NULL));
+	}
 }
 
 void HelloWorld::attackEnemy_2(Vec2 pos) {

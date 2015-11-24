@@ -90,6 +90,7 @@ public:
 	void update(float fDelta);            //적의 type 미사일 구현
 	Vector<Sprite*> vEMissile;            //적의 미사일을 백터에 저장
 
+	void attackEnemy_1(Vec2 pos);		 //type 1의 적 공격
 	void attackEnemy_2(Vec2 pos);        //type 2의 적 공격
 	void attackEnemy_3(Vec2 pos);        //type 3의 적 공격
 	void attackEnemy_4(Vec2 pos);
