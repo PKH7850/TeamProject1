@@ -175,10 +175,10 @@ void HelloWorld::attackEnemy_1(Vec2 pos) {
 		spr->setPosition(pos + Vec2(0, -30 * i));
 		this->addChild(spr);
 		vEMissile.pushBack(spr);                            //백터에 적의 미사일 저장
-		
+
 		spr->runAction(Sequence::create(
 			DelayTime::create(0.1f * i),
-			MoveBy::create(3.0f, Vec2(-5*(pos-sPlayer->getPosition()))),
+			MoveBy::create(3.0f, Vec2(-5 * (pos - sPlayer->getPosition()))),
 			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
 			NULL));
 	}
