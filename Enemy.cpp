@@ -156,7 +156,20 @@ void HelloWorld::update(float fDelta) {
 	      enemy2->isAttack = true;
 	      attackEnemy_3(enemy2->getPosition());
 	   }
+	}
 
+	for (MiddleBoss* enemy3 : vMidBoss) {        //백터 for문
+		if (!enemy3->isAttack && enemy3->getPositionY() < winSize.height) {    //false이고, 2/3지점일때 적이 공격
+
+			auto act = DelayTime::create(3.0f);
+			auto action1 = MoveTo::create(10.0f, Vec2(0, winSize.height - 100));
+			auto action2 = MoveTo::create(20.0f, Vec2(winSize.width, winSize.height - 100));
+			enemy3->isAttack = true;
+			auto seq = Sequence::create(action1, action2, NULL);
+			auto rep1 = RepeatForever::create(seq);
+			enemy3->runAction(rep1);
+			attackEnemy_5(enemy3->getPosition());
+		}
 	}
 	
 #ifndef _TEST_DEBUG            //테스트 디버깅용, 해더파일의 #define _TEST_DEBUG를 주석하면 디버깅한다.
@@ -229,6 +242,37 @@ void HelloWorld::attackEnemy_4(Vec2 pos) {
          CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
          NULL));
    }
+}
+
+
+void HelloWorld::attackEnemy_5(Vec2 pos) {
+	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
+	for (int i = 0; i < 5; i++) {                            //5개의 미사일을 방사형으로 쏜다
+		auto spr = Sprite::create("fire_1.png");
+		spr->setPosition(pos + Vec2(0, -30 * i));
+		this->addChild(spr);
+		vEMissile.pushBack(spr);                            //백터에 적의 미사일 저장
+
+		spr->runAction(Sequence::create(
+			DelayTime::create(0.1f * i),
+			MoveBy::create(1.5f, Vec2(-400 + i * 200, -winSize.height)),
+			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
+			NULL));
+	}
+
+	for (int i = 0; i < 5; i++) {                            //5개의 미사일을 방사형으로 쏜다
+		auto spr = Sprite::create("fire_1.png");
+		spr->setPosition(pos + Vec2(0, -30 * i));
+		this->addChild(spr);
+		vEMissile.pushBack(spr);                            //백터에 적의 미사일 저장
+
+		spr->runAction(Sequence::create(
+			DelayTime::create(0.1f * i),
+			MoveBy::create(1.5f, Vec2(-400 + i * 200, -winSize.height)),
+			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
+			NULL));
+	}
+
 }
 
 void HelloWorld::resetAttack(Ref* pSender) {
