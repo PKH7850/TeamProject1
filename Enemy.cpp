@@ -73,7 +73,7 @@ void HelloWorld::setEnemy(float fDelta) {
       MoveBy::create(speed, Vec2(0, -winSize.height - 200)),
       CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetEnemy2, this)), NULL));
    
-   if (enemycount == 3 && midbosscount == 0)
+   if (enemycount >= 3 && midbosscount == 0)
    {
 	   midbosscount++;
 	   speed = 0;
@@ -90,7 +90,7 @@ void HelloWorld::setEnemy(float fDelta) {
 	  //////////////////////////이쪽은 스프라이트 이미지 준비되면 애니메이션 적용.
 	   
 	   auto animation3 = Animation::create();
-	   animation3->setDelayPerUnit(0.35f);
+	   animation3->setDelayPerUnit(0.15f);
 	   for (int i = 0; i < 11; i++) {
 		   animation3->addSpriteFrameWithTexture(texture3, Rect(276 * i, 0, 276, 174));
 	   }
@@ -159,17 +159,25 @@ void HelloWorld::update(float fDelta) {
 	}
 
 	for (MiddleBoss* enemy3 : vMidBoss) {        //백터 for문
-		if (!enemy3->isAttack && enemy3->getPositionY() < winSize.height) {    //false이고, 2/3지점일때 적이 공격
-
+	
+		if (!enemy3->isAttack && enemy3->getPositionY() < winSize.height&&shotcount==0)
+		{
+			shotcount++;
 			auto act = DelayTime::create(3.0f);
 			auto action1 = MoveTo::create(10.0f, Vec2(0, winSize.height - 100));
 			auto action2 = MoveTo::create(20.0f, Vec2(winSize.width, winSize.height - 100));
-			enemy3->isAttack = true;
 			auto seq = Sequence::create(action1, action2, NULL);
 			auto rep1 = RepeatForever::create(seq);
 			enemy3->runAction(rep1);
 			attackEnemy_5(enemy3->getPosition());
+			enemy3->isAttack = true;
+
 		}
+		if (enemy3->isAttack && sPlayer->getPositionX() > enemy3->getPositionX() - 30 
+			&&sPlayer->getPositionX() < enemy3->getPositionX() + 30){
+			attackEnemy_5(enemy3->getPosition());
+		}
+		
 	}
 	
 #ifndef _TEST_DEBUG            //테스트 디버깅용, 해더파일의 #define _TEST_DEBUG를 주석하면 디버깅한다.
@@ -247,30 +255,25 @@ void HelloWorld::attackEnemy_4(Vec2 pos) {
 
 void HelloWorld::attackEnemy_5(Vec2 pos) {
 	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
-	for (int i = 0; i < 5; i++) {                            //5개의 미사일을 방사형으로 쏜다
-		auto spr = Sprite::create("fire_1.png");
-		spr->setPosition(pos + Vec2(0, -30 * i));
-		this->addChild(spr);
-		vEMissile.pushBack(spr);                            //백터에 적의 미사일 저장
-
-		spr->runAction(Sequence::create(
-			DelayTime::create(0.1f * i),
-			MoveBy::create(1.5f, Vec2(-400 + i * 200, -winSize.height)),
-			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
-			NULL));
-	}
-
-	for (int i = 0; i < 5; i++) {                            //5개의 미사일을 방사형으로 쏜다
-		auto spr = Sprite::create("fire_1.png");
-		spr->setPosition(pos + Vec2(0, -30 * i));
-		this->addChild(spr);
-		vEMissile.pushBack(spr);                            //백터에 적의 미사일 저장
-
-		spr->runAction(Sequence::create(
-			DelayTime::create(0.1f * i),
-			MoveBy::create(1.5f, Vec2(-400 + i * 200, -winSize.height)),
-			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
-			NULL));
+	for (int j = 0; j < 3;j++)
+	{ 
+		for (int i = 0; i < 5; i++) {                            //5개의 미사일을 방사형으로 쏜다
+			auto spr = Sprite::create("fire_1.png");
+			spr->setPosition(pos + Vec2(0, -30 * i));
+			this->addChild(spr);
+			vEMissile.pushBack(spr);                            //백터에 적의 미사일 저장
+			auto seq = Sequence::create(
+				DelayTime::create(0.1f * i),
+				MoveBy::create(1.5f, Vec2(-400 + i * 200, -winSize.height)),
+				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
+				NULL);
+			spr->runAction(seq);
+			//auto rep1 = RepeatForever::create(seq);
+			//auto delay1 = DelayTime::create(3);
+			//auto spawn = Spawn::create(delay1, seq, NULL);
+			//auto seq2 = Sequence::create(rep1, delay1, NULL);
+			//spr->runAction(rep1);
+		}
 	}
 
 }

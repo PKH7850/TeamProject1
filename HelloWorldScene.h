@@ -55,7 +55,7 @@ public:
 
 	int damage = 1;
 	int count = 0;
-
+	int shotcount = 0;
 	EventListenerTouchOneByOne* listener;
 	Size winSize;
 	bool isTitle;            //타이틀이 생성되면 클릭 불가(true)
