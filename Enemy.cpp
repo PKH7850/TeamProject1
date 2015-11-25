@@ -64,7 +64,7 @@ void HelloWorld::setEnemy(float fDelta) {
    auto animation2 = Animation::create();
    animation2->setDelayPerUnit(0.1f);
    for (int i = 0; i < 4; i++) {
-      animation2->addSpriteFrameWithTexture(texture2, Rect(96 * i, 0, 40, 72));
+      animation2->addSpriteFrameWithTexture(texture2, Rect(96 * i, 0, 50, 72));
    }
    auto animate2 = Animate::create(animation2);
    sEnemy2->runAction(RepeatForever::create(animate2));
@@ -90,9 +90,9 @@ void HelloWorld::setEnemy(float fDelta) {
 	  //////////////////////////이쪽은 스프라이트 이미지 준비되면 애니메이션 적용.
 	   
 	   auto animation3 = Animation::create();
-	   animation3->setDelayPerUnit(1000.0f);
+	   animation3->setDelayPerUnit(0.35f);
 	   for (int i = 0; i < 11; i++) {
-		   animation3->addSpriteFrameWithTexture(texture3, Rect(96 * i, 0, 230, 180));
+		   animation3->addSpriteFrameWithTexture(texture3, Rect(276 * i, 0, 276, 174));
 	   }
 	   auto animate3 = Animate::create(animation3);
 	   midBoss->runAction(RepeatForever::create(animate3));
