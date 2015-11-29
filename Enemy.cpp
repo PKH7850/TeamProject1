@@ -1,4 +1,5 @@
 ﻿#include "HelloWorldScene.h"
+//test commit
 
 void HelloWorld::setEnemy(float fDelta) {
 
@@ -21,26 +22,26 @@ void HelloWorld::setEnemy(float fDelta) {
    float speed = 4.0f;                    //적이 내려오는 속도를 저장
    if (random < 60) {                //60프로 확률로 발생
       sEnemy->type = 1;
-      sEnemy->hp = 5;
+      sEnemy->hp = 1;
       speed = 5.0f;
    }
    else if (random < 85) {            //20프로 확률로 발생
       sEnemy->type = 2;
-      sEnemy->hp = 7;
+      sEnemy->hp = 1;
       sEnemy->setScaleX(1.7f);
       speed = 9.0f;
    }
    else if (random <70)
    {                            //15프로 확률로 발생
       sEnemy->type = 3;
-      sEnemy->hp = 3;
+      sEnemy->hp = 1;
       sEnemy->setScaleY(1.5f);
       sEnemy->setScaleX(0.7f);
       speed = 7.0f;
    }
    if (random2 < 50)
    {
-      sEnemy2->hp = 10;
+      sEnemy2->hp = 1;
       speed = 3.0f;
    }
 
@@ -110,9 +111,9 @@ void HelloWorld::resetEnemy(Ref* pSender) {
    this->removeChild(spr);
 }
 void HelloWorld::resetEnemy2(Ref* pSender) {
-   auto spr2 = (SpriteEnemy*)pSender;
-   vEnemy2.eraseObject(spr2);
-   this->removeChild(spr2);
+	auto spr2 = (SpriteEnemy*)pSender;
+	vEnemy2.eraseObject(spr2);
+	this->removeChild(spr2);
 }
 
 void HelloWorld::update(float fDelta) {

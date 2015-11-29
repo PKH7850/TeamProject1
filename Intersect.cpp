@@ -30,6 +30,10 @@ void HelloWorld::intersectMissile() {        //플레이어 미사일 vs 적
 						item1->setPosition(enemy->getPosition());
 						this->addChild(item1);
 						CCActionInterval *move1 = CCMoveBy::create(8.0f, ccp(0, -winSize.height));
+						//RemoveSelf::create();
+						//item1->runAction(Sequence::create(
+						//	RemoveSelf::create(),
+						//	move1));
 						item1->runAction(move1);
 					}
 					else if (random > 70)
@@ -39,6 +43,9 @@ void HelloWorld::intersectMissile() {        //플레이어 미사일 vs 적
 						item2->setPosition(enemy->getPosition());
 						this->addChild(item2);
 						CCActionInterval *move2 = CCMoveBy::create(8.0f, ccp(0, -winSize.height));
+						//item2->runAction(Sequence::create(
+						//	RemoveSelf::create(),
+						//	move2));
 						item2->runAction(move2);
 					}
 					else if (random > 60)
@@ -48,6 +55,9 @@ void HelloWorld::intersectMissile() {        //플레이어 미사일 vs 적
 						item3->setPosition(enemy->getPosition());
 						this->addChild(item3);
 						CCActionInterval *move3 = CCMoveBy::create(8.0f, ccp(0, -winSize.height));
+						//item3->runAction(Sequence::create(
+						//	RemoveSelf::create(),
+						//	move3));
 						item3->runAction(move3);
 					}
 					particle->setPosition(enemy->getPosition());
@@ -130,7 +140,7 @@ void HelloWorld::intersectMissile() {        //플레이어 미사일 vs 적
 					SimpleAudioEngine::getInstance()->playEffect("boom2.wav");    //적이 죽을때 이펙트음
 					auto particle = ParticleSystemQuad::create("explosion.plist");
 					this->addChild(particle);
-					
+
 					particle->setPosition(enemy->getPosition());
 					particle->runAction(Sequence::create(        //파티클 생성후 2초후에 삭제
 						DelayTime::create(2.0f),
@@ -277,7 +287,7 @@ void HelloWorld::intersectPlayer() {
 					count++;
 				}
 			}
-			
+
 			if (count == 4) {
 				this->schedule(schedule_selector(HelloWorld::upGradeSub), 1.0f);
 				count = 2;
