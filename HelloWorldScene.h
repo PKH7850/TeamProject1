@@ -3,7 +3,6 @@
 
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"            //사운드 추가를 위한 헤더
-#include "LabelCreater.h"
 #include <ctime>
 
 USING_NS_CC;
@@ -65,6 +64,8 @@ public:
 	int enemycount = 0;
 	int midbosscount = 0;
 	int bosscount = 0;
+	int random = rand() % 100;        //100% 확률을 저장
+	int random2 = rand() % 100;
 
 	int damage = 1;
 	int count = 0;
