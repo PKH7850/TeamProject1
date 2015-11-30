@@ -29,10 +29,16 @@ bool HelloWorld::init()
 	initGameData();
 	initPlayer();
 	scoreboard(enemycount);
+	//setMissileInterface();
 	initGameover();
 
 	return true;
 }
+
+//void HelloWorld::setMissileInterface()
+//{
+
+//}
 
 void HelloWorld::scoreboard(int enemycount) {
 	

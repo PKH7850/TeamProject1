@@ -142,6 +142,8 @@ public:
 
 	void scoreboard(int enemycount);
 	void setScore();
+
+	void setMissileInterface();
 };
 
 #endif // __HELLOWORLD_SCENE_H__
