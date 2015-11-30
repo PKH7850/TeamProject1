@@ -102,6 +102,36 @@ void HelloWorld::setEnemy(float fDelta) {
 		   //CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetEnemy, this)), NULL));
 
    }
+
+   if (enemycount >= 20 && bosscount == 0)
+   {
+	   bosscount++;
+	   speed = 0;
+	   auto boss = Boss::create();
+	   boss->hp = 100;
+	   boss->setPosition(winSize.width / 2, winSize.height - 100);
+	   boss->isAttack = false;
+
+	   this->addChild(boss);
+
+	   vBoss.pushBack(boss);
+
+	   auto texture4 = Director::getInstance()->getTextureCache()->addImage("midboss.png");
+	   //////////////////////////이쪽은 스프라이트 이미지 준비되면 애니메이션 적용.
+
+	   auto animation4 = Animation::create();
+	   animation4->setDelayPerUnit(0.15f);
+	   for (int i = 0; i < 11; i++) {
+		   animation4->addSpriteFrameWithTexture(texture4, Rect(276 * i, 0, 276, 174));
+	   }
+	   auto animate4 = Animate::create(animation4);
+	   boss->runAction(RepeatForever::create(animate4));
+
+	   //sEnemy->runAction(Sequence::create(
+	   // MoveBy::create(speed, Vec2(0, -winSize.height - 200)),
+	   //CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetEnemy, this)), NULL));
+
+   }
 }
 
 void HelloWorld::resetEnemy(Ref* pSender) {
@@ -177,7 +207,6 @@ void HelloWorld::update(float fDelta) {
 			&&sPlayer->getPositionX() < enemy3->getPositionX() + 30){
 			attackEnemy_5(enemy3->getPosition());
 		}
-		
 	}
 	
 #ifndef _TEST_DEBUG            //테스트 디버깅용, 해더파일의 #define _TEST_DEBUG를 주석하면 디버깅한다.

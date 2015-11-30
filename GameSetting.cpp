@@ -257,7 +257,10 @@ void HelloWorld::resetGameover()        //게임을 다시시작함
 	}
 	for (MiddleBoss* enemy3 : vMidBoss){
 		this->removeChild(enemy3);
-	}
+	}/*
+	for (Boss* enemy4 : vBoss){
+		this->removeChild(enemy4);
+	}*/
 	for (Sprite* missile : vMissile) {
 		this->removeChild(missile);
 	}
