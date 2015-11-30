@@ -133,6 +133,8 @@ public:
 	virtual void onExit();
 	void reZorder(cocos2d::Sprite* pSender);
 	void goBack();
+
+	void HelloWorld::doRemoveFromParentAndCleanup(Node* sender, bool cleanup);
 };
 
 #endif // __HELLOWORLD_SCENE_H__
