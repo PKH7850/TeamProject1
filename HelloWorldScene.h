@@ -22,6 +22,13 @@ using namespace CocosDenshion;            //사운드 추가를 위한 namespace 선언
 #include "cocos2d.h"
 
 using namespace cocos2d;
+class Boss : public Sprite
+{
+public:
+	CREATE_FUNC(Boss);
+	int hp;
+	bool isAttack;
+};
 
 class MiddleBoss : public Sprite
 {
@@ -57,6 +64,7 @@ public:
 
 	int enemycount = 0;
 	int midbosscount = 0;
+	int bosscount = 0;
 
 	int damage = 1;
 	int count = 0;
@@ -105,6 +113,7 @@ public:
 	Vector<SpriteEnemy*> vEnemy;        //적의 hp, type등을 함께 저장할 백터
 	Vector<SpriteEnemy*> vEnemy2;
 	Vector<MiddleBoss*> vMidBoss;
+	Vector<Boss*> vBoss;
 
 	void update(float fDelta);            //적의 type 미사일 구현
 	Vector<Sprite*> vEMissile;            //적의 미사일을 백터에 저장
@@ -114,6 +123,8 @@ public:
 	void attackEnemy_3(Vec2 pos);        //type 3의 적 공격
 	void attackEnemy_4(Vec2 pos);
 	void attackEnemy_5(Vec2 pos);
+	void attackBoss1(Vec2 pos);
+	void attackBoss2(Vec2 pos);
 	void resetAttack(Ref* pSender);        //적의 공격 제거
 
 	void intersectMissile();            //적과 플레이어미사일 충돌체크
