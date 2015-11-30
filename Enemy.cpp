@@ -209,6 +209,23 @@ void HelloWorld::update(float fDelta) {
 			attackEnemy_5(enemy3->getPosition());
 		}
 	}
+	for (Boss* enemy4 : vBoss) {        //백터 for문
+
+		if (!enemy4->isAttack && enemy4->getPositionY() < winSize.height&&shotcount == 0)
+		{
+			shotcount++;
+
+			attackEnemy_5(enemy4->getPosition());
+			enemy4->isAttack = true;
+
+		}
+		/* 
+		if (enemy4->isAttack && sPlayer->getPositionX() > enemy4->getPositionX() - 30
+			&& sPlayer->getPositionX() < enemy4->getPositionX() + 30){
+			attackEnemy_5(enemy4->getPosition());
+		}
+		*/
+	}
 	
 #ifndef _TEST_DEBUG            //테스트 디버깅용, 해더파일의 #define _TEST_DEBUG를 주석하면 디버깅한다.
    //TODO: 테스트 디버깅
@@ -298,11 +315,44 @@ void HelloWorld::attackEnemy_5(Vec2 pos) {
 				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
 				NULL);
 			spr->runAction(seq);
-			//auto rep1 = RepeatForever::create(seq);
-			//auto delay1 = DelayTime::create(3);
-			//auto spawn = Spawn::create(delay1, seq, NULL);
-			//auto seq2 = Sequence::create(rep1, delay1, NULL);
-			//spr->runAction(rep1);
+		}
+	}
+
+}
+void HelloWorld::attackBoss1(Vec2 pos) {
+	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
+	for (int j = 0; j < 3; j++)
+	{
+		for (int i = 0; i < 5; i++) {                            //5개의 미사일을 방사형으로 쏜다
+			auto spr = Sprite::create("fire_1.png");
+			spr->setPosition(pos + Vec2(0, -30 * i));
+			this->addChild(spr);
+			vEMissile.pushBack(spr);                            //백터에 적의 미사일 저장
+			auto seq = Sequence::create(
+				DelayTime::create(0.1f * i),
+				MoveBy::create(5.0f, Vec2(-5 * (pos - sPlayer->getPosition()))),
+				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
+				NULL);
+			spr->runAction(seq);
+		}
+	}
+
+}
+void HelloWorld::attackBoss2(Vec2 pos) {
+	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
+	for (int j = 0; j < 3; j++)
+	{
+		for (int i = 0; i < 10; i++) {                            //10개의 미사일을 방사형으로 쏜다
+			auto spr = Sprite::create("fire_1.png");
+			spr->setPosition(pos + Vec2(0, -30 * i));
+			this->addChild(spr);
+			vEMissile.pushBack(spr);                            //백터에 적의 미사일 저장
+			auto seq = Sequence::create(
+				DelayTime::create(0.1f * i),
+				MoveBy::create(1.5f, Vec2(-400 + i * 200, -winSize.height)),
+				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
+				NULL);
+			spr->runAction(seq);
 		}
 	}
 

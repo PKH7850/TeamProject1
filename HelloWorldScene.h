@@ -118,6 +118,8 @@ public:
 	void attackEnemy_3(Vec2 pos);        //type 3의 적 공격
 	void attackEnemy_4(Vec2 pos);
 	void attackEnemy_5(Vec2 pos);
+	void attackBoss1(Vec2 pos);
+	void attackBoss2(Vec2 pos);
 	void resetAttack(Ref* pSender);        //적의 공격 제거
 
 	void intersectMissile();            //적과 플레이어미사일 충돌체크
