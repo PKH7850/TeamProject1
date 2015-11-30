@@ -28,10 +28,25 @@ bool HelloWorld::init()
 	initTitle();
 	initGameData();
 	initPlayer();
+	scoreboard(enemycount);
 	initGameover();
 
 	return true;
 }
+
+void HelloWorld::scoreboard(int enemycount) {
+	
+	auto label = Label::createWithTTF("Score: 0 ", "Schwarzwald Regular.ttf", 32);
+	label->setTextColor(Color4B::MAGENTA);
+	label->enableOutline(Color4B::WHITE, 3);
+	label->setPosition(Vec2(90, 680));
+	this->addChild(label);
+	score += (enemycount*10);
+	sprintf(szTEMP, "Score: %05i", score);
+	label->setString(szTEMP);
+}
+
+
 
 void HelloWorld::initPlayer() {
 	sPlayer = Sprite::create();

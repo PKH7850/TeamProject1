@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"            //사운드 추가를 위한 헤더
+#include "LabelCreater.h"
 #include <ctime>
 
 USING_NS_CC;
@@ -17,7 +18,7 @@ using namespace CocosDenshion;            //사운드 추가를 위한 namespace 선언
 #define TAG_ACTION_PALYER_MOVE        2
 #define    TAG_LABEL_GAMEOVER_1        3
 #define    TAG_LABEL_GAMEOVER_2        4
-
+#define TAG_LABEL_SCORE              5
 #include "cocos2d.h"
 
 using namespace cocos2d;
@@ -39,6 +40,8 @@ public:
 	bool isAttack;            //false 일때만 공격
 };
 
+
+
 class HelloWorld : public cocos2d::Layer
 {
 public:
@@ -49,6 +52,8 @@ public:
 	Sprite* item1;
 	Sprite* item2;
 	Sprite* item3;
+	int score = 0;
+	char szTEMP[100];
 
 	int enemycount = 0;
 	int midbosscount = 0;
@@ -125,7 +130,8 @@ public:
 	void reZorder(cocos2d::Sprite* pSender);
 	void goBack();
 
-	void HelloWorld::doRemoveFromParentAndCleanup(Node* sender, bool cleanup);
+	void scoreboard(int enemycount);
+	void setScore();
 };
 
 #endif // __HELLOWORLD_SCENE_H__

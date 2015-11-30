@@ -19,6 +19,7 @@ void HelloWorld::intersectMissile() {        //플레이어 미사일 vs 적
 				enemy->hp = (enemy->hp) - damage;
 				if (enemy->hp <= 0) {
 					enemycount++;
+					scoreboard(1);
 					SimpleAudioEngine::getInstance()->playEffect("boom2.wav");    //적이 죽을때 이펙트음
 					auto particle = ParticleSystemQuad::create("explosion.plist");
 					this->addChild(particle);
