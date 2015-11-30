@@ -3,7 +3,6 @@
 
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"            //사운드 추가를 위한 헤더
-#include "LabelCreater.h"
 #include <ctime>
 
 USING_NS_CC;
