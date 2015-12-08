@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"            //사운드 추가를 위한 헤더
 #include <ctime>
+#include <time.h>
 
 USING_NS_CC;
 using namespace CocosDenshion;            //사운드 추가를 위한 namespace 선언
@@ -47,7 +48,6 @@ public:
 };
 
 
-
 class HelloWorld : public cocos2d::Layer
 {
 public:
@@ -61,9 +61,18 @@ public:
 	int score = 0;
 	char szTEMP[100];
 
+	time_t start_time, end_time;
+	clock_t clk;
+	float missiletime = 0;
+
 	int enemycount = 0;
 	int midbosscount = 0;
+	int midbosskill = 0;
+	int midbossshotcount = 0;
 	int bosscount = 0;
+	int bosskill = 0;
+	int bossattack1 = 0;
+	int bossattack2 = 0;
 	int random = rand() % 100;        //100% 확률을 저장
 	int random2 = rand() % 100;
 

@@ -16,7 +16,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto director = Director::getInstance();
 	auto glview = director->getOpenGLView();
 	if (!glview) {
-		glview = GLViewImpl::createWithRect("test", Rect(0, 0, 1000, 1500));
+		glview = GLViewImpl::createWithRect("test", Rect(0, 0, 1280, 720));
 		//glview 는 윈도우즈에서만 작동하므로, 포팅하여도 안드로이드에선 작동하지 않는다.
 		glview->setFrameZoomFactor(0.5f);    //디버깅시 출력되는 창의 크기를 줄여준다.
 		director->setOpenGLView(glview);

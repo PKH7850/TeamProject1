@@ -83,7 +83,7 @@ void HelloWorld::initGameData() {
 	vEnemy.clear();
 	vItem.clear();
 	vEnemy2.clear();
-	vMidBoss.clear();
+	//vMidBoss.clear();
 
 	isTitle = true;        //클릭 불가
 	isPlayerDie = false;   //플레이어가 죽으면 true
@@ -255,9 +255,11 @@ void HelloWorld::resetGameover()        //게임을 다시시작함
 	for (SpriteEnemy* enemy2 : vEnemy2) {
 		this->removeChild(enemy2);
 	}
+	/*
 	for (MiddleBoss* enemy3 : vMidBoss){
 		this->removeChild(enemy3);
-	}/*
+	}*/
+	/*
 	for (Boss* enemy4 : vBoss){
 		this->removeChild(enemy4);
 	}*/
