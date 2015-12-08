@@ -88,6 +88,7 @@ void HelloWorld::initGameData() {
 	isTitle = true;        //클릭 불가
 	isPlayerDie = false;   //플레이어가 죽으면 true
 	isGameover = false;    //게임오버가 되면 true
+	isReady = false;
 
 }
 void HelloWorld::initBG() {
@@ -139,8 +140,54 @@ void HelloWorld::setTitle() {
 	this->schedule(schedule_selector(HelloWorld::setEnemy), 1.0f);        //적 생성하는 간격
 	this->scheduleUpdate();
 }
-bool HelloWorld::onTouchBegan(Touch *touch, Event *unused_event) {
 
+void HelloWorld::setMissileInterface()
+{
+	CCSprite * chargeMissile = CCSprite::create("CloseNormal.png");
+	pro1 = CCProgressTimer::create(chargeMissile);
+	pro1->setScale(3);
+	pro1->setTag(1000);
+	pro1->setPosition(Vec2(90, 100));
+	this->addChild(pro1, 1);
+	pro1->setType(kCCProgressTimerTypeRadial);
+	
+	CCProgressFromTo* ac1 = CCProgressFromTo::create(5.0f, 0, 100);
+	pro1->runAction(ac1);
+}
+void HelloWorld::charge(Vec2 onTouchBeganLocation)
+{
+	
+	Vec2 location = onTouchBeganLocation;
+	auto spr = (Sprite*)this->getChildByTag(1000);
+	float percentage;
+	percentage = pro1->getPercentage();
+
+	if (location.x >= spr->getPosition().x){
+		if (location.y >= spr->getPosition().y){
+			if (location.x <= (spr->getPosition().x + spr->getContentSize().width)){
+				if (location.y <= (spr->getPosition().y + spr->getContentSize().height)){
+					if (percentage >= 100)
+					{
+						spr->setScale(4);
+						this->unschedule(schedule_selector(HelloWorld::upGradeP2));
+						this->unschedule(schedule_selector(HelloWorld::upGradeF2));
+						this->unschedule(schedule_selector(HelloWorld::upGradeL2));
+						this->unschedule(schedule_selector(HelloWorld::upGradeP3));
+						this->unschedule(schedule_selector(HelloWorld::upGradeF3));
+						this->unschedule(schedule_selector(HelloWorld::upGradeL3));
+						this->unschedule(schedule_selector(HelloWorld::upGradeP4));
+						this->unschedule(schedule_selector(HelloWorld::upGradeF4));
+						this->unschedule(schedule_selector(HelloWorld::upGradeL4));
+
+						this->schedule(schedule_selector(HelloWorld::upGradeL3), 0.01, 1000, 0);
+					}
+				}
+			}
+		}
+	}
+}
+
+bool HelloWorld::onTouchBegan(Touch *touch, Event *unused_event) {
 	if (isGameover) {
 		resetGameover();
 		return true;
@@ -152,6 +199,8 @@ bool HelloWorld::onTouchBegan(Touch *touch, Event *unused_event) {
 		setTitle();            //타이틀 출력상태에서 터치하면 게임시작됨
 		return true;
 	}
+	Vec2 location = touch->getLocation();
+	charge(location);
 
 	return true;
 }

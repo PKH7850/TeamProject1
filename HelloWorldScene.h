@@ -60,6 +60,7 @@ public:
 	Sprite* item3;
 	int score = 0;
 	char szTEMP[100];
+	CCProgressTimer* pro1;
 
 	time_t start_time, end_time;
 	clock_t clk;
@@ -84,6 +85,7 @@ public:
 	bool isTitle;            //타이틀이 생성되면 클릭 불가(true)
 	bool isPlayerDie;        //플레이어가 죽으면 true
 	bool isGameover;        //게임오버가 되면 true
+	bool isReady;
 
 	void initBG();            //게임 배경 생성
 	void initTitle();        //게임 타이틀 생성
@@ -155,6 +157,7 @@ public:
 	void setScore();
 
 	void setMissileInterface();
+	void charge(Vec2 onTouchBeganLocation);
 };
 
 #endif // __HELLOWORLD_SCENE_H__
