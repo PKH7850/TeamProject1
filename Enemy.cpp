@@ -2,137 +2,138 @@
 //test commit
 
 void HelloWorld::setEnemy(float fDelta) {
+	if (bosscount == 0){
+		float randX = rand() % (1280 - TAG_PADDING_WIDTH * 2) + TAG_PADDING_WIDTH;        // 적의 x좌표값을 좌우 화면끝의 간격을
+		float rand2X = rand() % (1280 - TAG_PADDING_WIDTH * 2) + TAG_PADDING_WIDTH;
+		// 50만큼씩은 발생하지 않도록 설정
+		auto sEnemy = SpriteEnemy::create();
+		auto sEnemy2 = SpriteEnemy::create();
 
-   float randX = rand() % (1280 - TAG_PADDING_WIDTH * 2) + TAG_PADDING_WIDTH;        // 적의 x좌표값을 좌우 화면끝의 간격을
-   float rand2X = rand() % (1280 - TAG_PADDING_WIDTH * 2) + TAG_PADDING_WIDTH;
-   // 50만큼씩은 발생하지 않도록 설정
-   auto sEnemy = SpriteEnemy::create();
-   auto sEnemy2 = SpriteEnemy::create();
+		sEnemy->setPosition(randX, winSize.height + 100);
+		sEnemy->isAttack = false;
+		sEnemy2->setPosition(rand2X, winSize.height + 100);
+		sEnemy2->isAttack = false;
 
-   sEnemy->setPosition(randX, winSize.height + 100);
-   sEnemy->isAttack = false;
-   sEnemy2->setPosition(rand2X, winSize.height + 100);
-   sEnemy2->isAttack = false;
+		this->addChild(sEnemy);
+		this->addChild(sEnemy2);
 
-   this->addChild(sEnemy);
-   this->addChild(sEnemy2);
+		//int random = rand() % 100;        //100% 확률을 저장
+		//int random2 = rand() % 100;
+		float speed = 4.0f;                    //적이 내려오는 속도를 저장
+		if (random < 60) {                //60프로 확률로 발생
+			sEnemy->type = 1;
+			sEnemy->hp = 1;
+			speed = 5.0f;
+		}
+		else if (random < 85) {            //20프로 확률로 발생
+			sEnemy->type = 2;
+			sEnemy->hp = 1;
+			sEnemy->setScaleX(1.7f);
+			speed = 9.0f;
+		}
+		else if (random < 70)
+		{                            //15프로 확률로 발생
+			sEnemy->type = 3;
+			sEnemy->hp = 1;
+			sEnemy->setScaleY(1.5f);
+			sEnemy->setScaleX(0.7f);
+			speed = 7.0f;
+		}
+		if (random2 < 50)
+		{
+			sEnemy2->hp = 1;
+			speed = 3.0f;
+		}
 
-   int random = rand() % 100;        //100% 확률을 저장
-   int random2 = rand() % 100;
-   float speed = 4.0f;                    //적이 내려오는 속도를 저장
-   if (random < 60) {                //60프로 확률로 발생
-      sEnemy->type = 1;
-      sEnemy->hp = 1;
-      speed = 5.0f;
-   }
-   else if (random < 85) {            //20프로 확률로 발생
-      sEnemy->type = 2;
-      sEnemy->hp = 1;
-      sEnemy->setScaleX(1.7f);
-      speed = 9.0f;
-   }
-   else if (random <70)
-   {                            //15프로 확률로 발생
-      sEnemy->type = 3;
-      sEnemy->hp = 1;
-      sEnemy->setScaleY(1.5f);
-      sEnemy->setScaleX(0.7f);
-      speed = 7.0f;
-   }
-   if (random2 < 50)
-   {
-      sEnemy2->hp = 1;
-      speed = 3.0f;
-   }
+		vEnemy.pushBack(sEnemy);
+		vEnemy2.pushBack(sEnemy2);
 
-   vEnemy.pushBack(sEnemy);
-   vEnemy2.pushBack(sEnemy2);
+		auto texture = Director::getInstance()->getTextureCache()->addImage("enemy.png");
+		auto animation = Animation::create();
+		animation->setDelayPerUnit(0.1f);
+		for (int i = 0; i < 4; i++) {
+			animation->addSpriteFrameWithTexture(texture, Rect(96 * i, 0, 50, 72));
+		}
+		auto animate = Animate::create(animation);
+		sEnemy->runAction(RepeatForever::create(animate));
 
-   auto texture = Director::getInstance()->getTextureCache()->addImage("enemy.png");
-   auto animation = Animation::create();
-   animation->setDelayPerUnit(0.1f);
-   for (int i = 0; i < 4; i++) {
-      animation->addSpriteFrameWithTexture(texture, Rect(96 * i, 0, 50, 72));
-   }
-   auto animate = Animate::create(animation);
-   sEnemy->runAction(RepeatForever::create(animate));
+		sEnemy->runAction(Sequence::create(
+			MoveBy::create(speed, Vec2(0, -winSize.height - 200)),
+			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetEnemy, this)), NULL));
 
-   sEnemy->runAction(Sequence::create(
-      MoveBy::create(speed, Vec2(0, -winSize.height - 200)),
-      CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetEnemy, this)), NULL));
+		auto texture2 = Director::getInstance()->getTextureCache()->addImage("enemy3.png");
+		auto animation2 = Animation::create();
+		animation2->setDelayPerUnit(0.1f);
+		for (int i = 0; i < 4; i++) {
+			animation2->addSpriteFrameWithTexture(texture2, Rect(96 * i, 0, 50, 72));
+		}
+		auto animate2 = Animate::create(animation2);
+		sEnemy2->runAction(RepeatForever::create(animate2));
 
-   auto texture2 = Director::getInstance()->getTextureCache()->addImage("enemy3.png");
-   auto animation2 = Animation::create();
-   animation2->setDelayPerUnit(0.1f);
-   for (int i = 0; i < 4; i++) {
-      animation2->addSpriteFrameWithTexture(texture2, Rect(96 * i, 0, 50, 72));
-   }
-   auto animate2 = Animate::create(animation2);
-   sEnemy2->runAction(RepeatForever::create(animate2));
+		sEnemy2->runAction(Sequence::create(
+			MoveBy::create(speed, Vec2(0, -winSize.height - 200)),
+			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetEnemy2, this)), NULL));
 
-   sEnemy2->runAction(Sequence::create(
-      MoveBy::create(speed, Vec2(0, -winSize.height - 200)),
-      CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetEnemy2, this)), NULL));
-   
-   if (enemycount >= 3 && midbosscount == 0)
-   {
-	   midbosscount++;
-	   speed = 0;
-	   auto midBoss = MiddleBoss::create();
-	   midBoss->hp = 100;
-	   midBoss->setPosition(winSize.width/2, winSize.height - 100);
-	   midBoss->isAttack = false;
+		if (enemycount >= 3 && midbosscount == 0)
+		{
+			midbosscount++;
+			speed = 0;
+			auto midBoss = MiddleBoss::create();
+			midBoss->hp = 100;
+			midBoss->setPosition(winSize.width / 2, winSize.height - 100);
+			midBoss->isAttack = false;
 
-	   this->addChild(midBoss);
+			this->addChild(midBoss);
 
-	   vMidBoss.pushBack(midBoss);
+			vMidBoss.pushBack(midBoss);
 
-	   auto texture3 = Director::getInstance()->getTextureCache()->addImage("midboss.png");
-	  //////////////////////////이쪽은 스프라이트 이미지 준비되면 애니메이션 적용.
-	   
-	   auto animation3 = Animation::create();
-	   animation3->setDelayPerUnit(0.15f);
-	   for (int i = 0; i < 11; i++) {
-		   animation3->addSpriteFrameWithTexture(texture3, Rect(276 * i, 0, 276, 174));
-	   }
-	   auto animate3 = Animate::create(animation3);
-	   midBoss->runAction(RepeatForever::create(animate3));
-	   
-	   //sEnemy->runAction(Sequence::create(
-		  // MoveBy::create(speed, Vec2(0, -winSize.height - 200)),
-		   //CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetEnemy, this)), NULL));
+			auto texture3 = Director::getInstance()->getTextureCache()->addImage("midboss.png");
+			//////////////////////////이쪽은 스프라이트 이미지 준비되면 애니메이션 적용.
 
-   }
+			auto animation3 = Animation::create();
+			animation3->setDelayPerUnit(0.15f);
+			for (int i = 0; i < 11; i++) {
+				animation3->addSpriteFrameWithTexture(texture3, Rect(276 * i, 0, 276, 174));
+			}
+			auto animate3 = Animate::create(animation3);
+			midBoss->runAction(RepeatForever::create(animate3));
 
-   if (enemycount >= 20 && bosscount == 0)
-   {
-	   bosscount++;
-	   speed = 0;
-	   auto boss = Boss::create();
-	   boss->hp = 100;
-	   boss->setPosition(winSize.width / 2, winSize.height - 100);
-	   boss->isAttack = false;
+			//sEnemy->runAction(Sequence::create(
+			// MoveBy::create(speed, Vec2(0, -winSize.height - 200)),
+			//CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetEnemy, this)), NULL));
 
-	   this->addChild(boss);
+		}
 
-	   vBoss.pushBack(boss);
+		if (enemycount >= 20 && bosscount == 0)
+		{
+			bosscount++;
+			speed = 0;
+			auto boss = Boss::create();
+			boss->hp = 100;
+			boss->setPosition(winSize.width / 2, winSize.height - 100);
+			boss->isAttack = false;
 
-	   auto texture4 = Director::getInstance()->getTextureCache()->addImage("midboss.png");
-	   //////////////////////////이쪽은 스프라이트 이미지 준비되면 애니메이션 적용.
+			this->addChild(boss);
 
-	   auto animation4 = Animation::create();
-	   animation4->setDelayPerUnit(0.15f);
-	   for (int i = 0; i < 11; i++) {
-		   animation4->addSpriteFrameWithTexture(texture4, Rect(276 * i, 0, 276, 174));
-	   }
-	   auto animate4 = Animate::create(animation4);
-	   boss->runAction(RepeatForever::create(animate4));
+			vBoss.pushBack(boss);
 
-	   //sEnemy->runAction(Sequence::create(
-	   // MoveBy::create(speed, Vec2(0, -winSize.height - 200)),
-	   //CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetEnemy, this)), NULL));
+			auto texture4 = Director::getInstance()->getTextureCache()->addImage("midboss.png");
+			//////////////////////////이쪽은 스프라이트 이미지 준비되면 애니메이션 적용.
 
-   }
+			auto animation4 = Animation::create();
+			animation4->setDelayPerUnit(0.15f);
+			for (int i = 0; i < 11; i++) {
+				animation4->addSpriteFrameWithTexture(texture4, Rect(276 * i, 0, 276, 174));
+			}
+			auto animate4 = Animate::create(animation4);
+			boss->runAction(RepeatForever::create(animate4));
+
+			//sEnemy->runAction(Sequence::create(
+			// MoveBy::create(speed, Vec2(0, -winSize.height - 200)),
+			//CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetEnemy, this)), NULL));
+
+		}
+	}
 }
 
 void HelloWorld::resetEnemy(Ref* pSender) {

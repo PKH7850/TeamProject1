@@ -65,6 +65,8 @@ public:
 	int enemycount = 0;
 	int midbosscount = 0;
 	int bosscount = 0;
+	int random = rand() % 100;        //100% È®·üÀ» ÀúÀå
+	int random2 = rand() % 100;
 
 	int damage = 1;
 	int count = 0;
