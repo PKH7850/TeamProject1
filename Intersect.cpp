@@ -18,6 +18,7 @@ void HelloWorld::intersectMissile() {        //플레이어 미사일 vs 적
 				SimpleAudioEngine::getInstance()->playEffect("boom2.wav");        //적이 미사일에 맞을때 이펙트음
 				enemy->hp = (enemy->hp) - damage;
 				if (enemy->hp <= 0) {
+					midbossshotcount++;
 					enemycount++;
 					scoreboard(1);
 					SimpleAudioEngine::getInstance()->playEffect("boom2.wav");    //적이 죽을때 이펙트음
@@ -83,6 +84,7 @@ void HelloWorld::intersectMissile() {        //플레이어 미사일 vs 적
 				SimpleAudioEngine::getInstance()->playEffect("boom2.wav");        //적이 미사일에 맞을때 이펙트음
 				enemy->hp = (enemy->hp) - damage;
 				if (enemy->hp <= 0) {
+					midbossshotcount++;
 					enemycount++;
 					scoreboard(1);
 					SimpleAudioEngine::getInstance()->playEffect("boom2.wav");    //적이 죽을때 이펙트음
@@ -138,7 +140,7 @@ void HelloWorld::intersectMissile() {        //플레이어 미사일 vs 적
 				SimpleAudioEngine::getInstance()->playEffect("boom2.wav");        //적이 미사일에 맞을때 이펙트음
 				enemy->hp = (enemy->hp) - damage;
 				if (enemy->hp <= 0) {
-					enemycount++;
+					midbosskill++;
 					SimpleAudioEngine::getInstance()->playEffect("boom2.wav");    //적이 죽을때 이펙트음
 					auto particle = ParticleSystemQuad::create("explosion.plist");
 					this->addChild(particle);
@@ -165,7 +167,7 @@ void HelloWorld::intersectMissile() {        //플레이어 미사일 vs 적
 				SimpleAudioEngine::getInstance()->playEffect("boom2.wav");        //적이 미사일에 맞을때 이펙트음
 				enemy->hp = (enemy->hp) - damage;
 				if (enemy->hp <= 0) {
-					enemycount++;
+					bosskill++;
 					SimpleAudioEngine::getInstance()->playEffect("boom2.wav");    //적이 죽을때 이펙트음
 					auto particle = ParticleSystemQuad::create("explosion.plist");
 					this->addChild(particle);

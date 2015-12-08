@@ -1,4 +1,5 @@
 ﻿#include "HelloWorldScene.h"
+
 //test commit
 
 void HelloWorld::setEnemy(float fDelta) {
@@ -104,8 +105,10 @@ void HelloWorld::setEnemy(float fDelta) {
 
 		}
 
-		if (enemycount >= 20 && bosscount == 0)
+		if (enemycount >= 20 && bosscount == 0 && midbosskill==1)
 		{
+			//SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+			//SimpleAudioEngine::getInstance()->playBackgroundMusic("background.mp3", true);
 			bosscount++;
 			speed = 0;
 			auto boss = Boss::create();
@@ -203,29 +206,34 @@ void HelloWorld::update(float fDelta) {
 			enemy3->runAction(rep1);
 			attackEnemy_5(enemy3->getPosition());
 			enemy3->isAttack = true;
-
+			midbossshotcount=0;
 		}
+
 		if (enemy3->isAttack && sPlayer->getPositionX() > enemy3->getPositionX() - 30 
-			&&sPlayer->getPositionX() < enemy3->getPositionX() + 30){
+			&&sPlayer->getPositionX() < enemy3->getPositionX() + 30 && midbossshotcount >0){
 			attackEnemy_5(enemy3->getPosition());
 		}
 	}
 	for (Boss* enemy4 : vBoss) {        //백터 for문
-
+		shotcount--;
 		if (!enemy4->isAttack && enemy4->getPositionY() < winSize.height&&shotcount == 0)
 		{
 			shotcount++;
-
 			attackEnemy_5(enemy4->getPosition());
 			enemy4->isAttack = true;
-
 		}
-		/* 
+		
 		if (enemy4->isAttack && sPlayer->getPositionX() > enemy4->getPositionX() - 30
 			&& sPlayer->getPositionX() < enemy4->getPositionX() + 30){
 			attackEnemy_5(enemy4->getPosition());
 		}
-		*/
+
+		if (enemy4->isAttack && (sPlayer->getPositionX() < winSize.width && sPlayer->getPositionX() > (winSize.width/(3/4)))
+			||(sPlayer->getPositionX() >0&&sPlayer->getPositionX()<winSize.width/8)){
+			shotcount++;
+			attackBoss1(enemy4->getPosition());
+		}
+		
 	}
 	
 #ifndef _TEST_DEBUG            //테스트 디버깅용, 해더파일의 #define _TEST_DEBUG를 주석하면 디버깅한다.
@@ -317,27 +325,29 @@ void HelloWorld::attackEnemy_5(Vec2 pos) {
 				NULL);
 			spr->runAction(seq);
 		}
+		
 	}
-
+	midbossshotcount=0;
 }
+
 void HelloWorld::attackBoss1(Vec2 pos) {
 	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
 	for (int j = 0; j < 3; j++)
 	{
-		for (int i = 0; i < 5; i++) {                            //5개의 미사일을 방사형으로 쏜다
+		for (int i = 0; i < 1; i++) {                            //5개의 미사일을 방사형으로 쏜다
 			auto spr = Sprite::create("fire_1.png");
 			spr->setPosition(pos + Vec2(0, -30 * i));
 			this->addChild(spr);
 			vEMissile.pushBack(spr);                            //백터에 적의 미사일 저장
 			auto seq = Sequence::create(
-				DelayTime::create(0.1f * i),
+				DelayTime::create(1.0f * i),
 				MoveBy::create(5.0f, Vec2(-5 * (pos - sPlayer->getPosition()))),
 				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
 				NULL);
 			spr->runAction(seq);
 		}
 	}
-
+	while (clk + 1 * 1000 > clock());
 }
 void HelloWorld::attackBoss2(Vec2 pos) {
 	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
@@ -349,8 +359,20 @@ void HelloWorld::attackBoss2(Vec2 pos) {
 			this->addChild(spr);
 			vEMissile.pushBack(spr);                            //백터에 적의 미사일 저장
 			auto seq = Sequence::create(
-				DelayTime::create(0.1f * i),
-				MoveBy::create(1.5f, Vec2(-400 + i * 200, -winSize.height)),
+				DelayTime::create(0.01f * i),
+				MoveBy::create(1.5f, Vec2(-400 + i * 100, -winSize.height)),
+				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
+				NULL);
+			spr->runAction(seq);
+		}
+		for (int i = 0; i < 10; i++) {                            //10개의 미사일을 방사형으로 쏜다
+			auto spr = Sprite::create("fire_1.png");
+			spr->setPosition(pos + Vec2(0, -30 * i));
+			this->addChild(spr);
+			vEMissile.pushBack(spr);                            //백터에 적의 미사일 저장
+			auto seq = Sequence::create(
+				DelayTime::create(0.01f * i),
+				MoveBy::create(1.5f, Vec2(400 + i * -100, winSize.height)),
 				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //미사일 제거 함수 호출
 				NULL);
 			spr->runAction(seq);
@@ -364,3 +386,4 @@ void HelloWorld::resetAttack(Ref* pSender) {
    vEMissile.eraseObject(spr);        //백터에서 미사일 제거
    this->removeChild(spr);            //화면에서 미사일 제거
 }
+
