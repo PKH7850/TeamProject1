@@ -22,6 +22,7 @@ bool HelloWorld::init()
 
 	listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
+	
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
 	initBG();
@@ -29,16 +30,11 @@ bool HelloWorld::init()
 	initGameData();
 	initPlayer();
 	scoreboard(enemycount);
-	//setMissileInterface();
+	setMissileInterface();
 	initGameover();
 
 	return true;
 }
-
-//void HelloWorld::setMissileInterface()
-//{
-
-//}
 
 void HelloWorld::scoreboard(int enemycount) {
 	
@@ -70,5 +66,5 @@ void HelloWorld::initPlayer() {
 	}
 	auto animate = Animate::create(animation);
 	sPlayer->runAction(RepeatForever::create(animate));
-
 }
+
