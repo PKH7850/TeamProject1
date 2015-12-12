@@ -1,6 +1,6 @@
 #include "HelloWorldScene.h"
 #include "MenuScene.h"
-#include "EndScene.h"
+
 USING_NS_CC;
 typedef std::vector<Sprite*> where;
 Scene* HelloWorld::createScene()
@@ -30,6 +30,7 @@ bool HelloWorld::init()
 	initGameData();
 	initPlayer();
 	scoreboard(enemycount);
+	setChargeMissileInterface();
 	setMissileInterface();
 	initGameover();
 

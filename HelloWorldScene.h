@@ -5,6 +5,7 @@
 #include "SimpleAudioEngine.h"            //사운드 추가를 위한 헤더
 #include <ctime>
 #include <time.h>
+
 USING_NS_CC;
 using namespace CocosDenshion;            //사운드 추가를 위한 namespace 선언
 
@@ -117,6 +118,8 @@ public:
 
 	void upGradeSub(float fDelta);
 
+	void missile(float fDelta);
+
 	void setEnemy(float fDelta);        //적 구현
 	void resetEnemy(Ref* pSender);        //적 제거 구현
 	void resetEnemy2(Ref* pSender);
@@ -155,8 +158,10 @@ public:
 	void scoreboard(int enemycount);
 	void setScore();
 
+	void setChargeMissileInterface();
 	void setMissileInterface();
 	void charge(Vec2 onTouchBeganLocation);
+	void missile(Vec2 onTouchBeganLocation);
 };
 
 #endif // __HELLOWORLD_SCENE_H__

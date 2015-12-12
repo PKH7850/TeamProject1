@@ -1,12 +1,12 @@
-ï»¿#include "HelloWorldScene.h"
+#include "HelloWorldScene.h"
 
 //test commit
 
 void HelloWorld::setEnemy(float fDelta) {
 	if (bosscount == 0){
-		float randX = rand() % (1280 - TAG_PADDING_WIDTH * 2) + TAG_PADDING_WIDTH;        // ì ì˜ xì¢Œí‘œê°’ì„ ì¢Œìš° í™”ë©´ëì˜ ê°„ê²©ì„
+		float randX = rand() % (1280 - TAG_PADDING_WIDTH * 2) + TAG_PADDING_WIDTH;        // ÀûÀÇ xÁÂÇ¥°ªÀ» ÁÂ¿ì È­¸é³¡ÀÇ °£°İÀ»
 		float rand2X = rand() % (1280 - TAG_PADDING_WIDTH * 2) + TAG_PADDING_WIDTH;
-		// 50ë§Œí¼ì”©ì€ ë°œìƒí•˜ì§€ ì•Šë„ë¡ ì„¤ì •
+		// 50¸¸Å­¾¿Àº ¹ß»ıÇÏÁö ¾Êµµ·Ï ¼³Á¤
 		auto sEnemy = SpriteEnemy::create();
 		auto sEnemy2 = SpriteEnemy::create();
 
@@ -18,22 +18,22 @@ void HelloWorld::setEnemy(float fDelta) {
 		this->addChild(sEnemy);
 		this->addChild(sEnemy2);
 
-		//int random = rand() % 100;        //100% í™•ë¥ ì„ ì €ì¥
+		//int random = rand() % 100;        //100% È®·üÀ» ÀúÀå
 		//int random2 = rand() % 100;
-		float speed = 4.0f;                    //ì ì´ ë‚´ë ¤ì˜¤ëŠ” ì†ë„ë¥¼ ì €ì¥
-		if (random < 60) {                //60í”„ë¡œ í™•ë¥ ë¡œ ë°œìƒ
+		float speed = 4.0f;                    //ÀûÀÌ ³»·Á¿À´Â ¼Óµµ¸¦ ÀúÀå
+		if (random < 60) {                //60ÇÁ·Î È®·ü·Î ¹ß»ı
 			sEnemy->type = 1;
 			sEnemy->hp = 1;
 			speed = 5.0f;
 		}
-		else if (random < 85) {            //20í”„ë¡œ í™•ë¥ ë¡œ ë°œìƒ
+		else if (random < 85) {            //20ÇÁ·Î È®·ü·Î ¹ß»ı
 			sEnemy->type = 2;
 			sEnemy->hp = 1;
 			sEnemy->setScaleX(1.7f);
 			speed = 9.0f;
 		}
 		else if (random < 70)
-		{                            //15í”„ë¡œ í™•ë¥ ë¡œ ë°œìƒ
+		{                            //15ÇÁ·Î È®·ü·Î ¹ß»ı
 			sEnemy->type = 3;
 			sEnemy->hp = 1;
 			sEnemy->setScaleY(1.5f);
@@ -89,7 +89,7 @@ void HelloWorld::setEnemy(float fDelta) {
 			vMidBoss.pushBack(midBoss);
 
 			auto texture3 = Director::getInstance()->getTextureCache()->addImage("midboss.png");
-			//////////////////////////ì´ìª½ì€ ìŠ¤í”„ë¼ì´íŠ¸ ì´ë¯¸ì§€ ì¤€ë¹„ë˜ë©´ ì• ë‹ˆë©”ì´ì…˜ ì ìš©.
+			//////////////////////////ÀÌÂÊÀº ½ºÇÁ¶óÀÌÆ® ÀÌ¹ÌÁö ÁØºñµÇ¸é ¾Ö´Ï¸ŞÀÌ¼Ç Àû¿ë.
 
 			auto animation3 = Animation::create();
 			animation3->setDelayPerUnit(0.15f);
@@ -105,7 +105,7 @@ void HelloWorld::setEnemy(float fDelta) {
 
 		}
 
-		if (enemycount >= 20 && bosscount == 0 && midbosskill==1)
+		if (enemycount >= 20 && bosscount == 0 && midbosskill == 1)
 		{
 			//SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 			//SimpleAudioEngine::getInstance()->playBackgroundMusic("background.mp3", true);
@@ -121,7 +121,7 @@ void HelloWorld::setEnemy(float fDelta) {
 			vBoss.pushBack(boss);
 
 			auto texture4 = Director::getInstance()->getTextureCache()->addImage("midboss.png");
-			//////////////////////////ì´ìª½ì€ ìŠ¤í”„ë¼ì´íŠ¸ ì´ë¯¸ì§€ ì¤€ë¹„ë˜ë©´ ì• ë‹ˆë©”ì´ì…˜ ì ìš©.
+			//////////////////////////ÀÌÂÊÀº ½ºÇÁ¶óÀÌÆ® ÀÌ¹ÌÁö ÁØºñµÇ¸é ¾Ö´Ï¸ŞÀÌ¼Ç Àû¿ë.
 
 			auto animation4 = Animation::create();
 			animation4->setDelayPerUnit(0.15f);
@@ -140,9 +140,9 @@ void HelloWorld::setEnemy(float fDelta) {
 }
 
 void HelloWorld::resetEnemy(Ref* pSender) {
-   auto spr = (SpriteEnemy*)pSender;
-   vEnemy.eraseObject(spr);
-   this->removeChild(spr);
+	auto spr = (SpriteEnemy*)pSender;
+	vEnemy.eraseObject(spr);
+	this->removeChild(spr);
 }
 void HelloWorld::resetEnemy2(Ref* pSender) {
 	auto spr2 = (SpriteEnemy*)pSender;
@@ -155,47 +155,47 @@ void HelloWorld::update(float fDelta) {
 
 	auto sPlayer = (Sprite*)this->getChildByTag(TAG_SPRITE_PLAYER);
 
-	for (SpriteEnemy* enemy : vEnemy) {        //ë°±í„° forë¬¸
+	for (SpriteEnemy* enemy : vEnemy) {        //¹éÅÍ for¹®
 		if (enemy->type == 1) {
 			if (!enemy->isAttack && enemy->getPositionY() < winSize.height * 3 / 4) {
-			   enemy->isAttack = true;
-			   attackEnemy_1(enemy->getPosition());
+				enemy->isAttack = true;
+				attackEnemy_1(enemy->getPosition());
 			}
 		}
-		else if (enemy->type == 2) {                //ì 
-		  if (!enemy->isAttack && enemy->getPositionY() < winSize.height * 3 / 4) {    //falseì´ê³ , 2/3ì§€ì ì¼ë•Œ ì ì´ ê³µê²©
-		     enemy->isAttack = true;
-		     attackEnemy_2(enemy->getPosition());
-		  }
+		else if (enemy->type == 2) {                //Àû
+			if (!enemy->isAttack && enemy->getPositionY() < winSize.height * 3 / 4) {    //falseÀÌ°í, 2/3ÁöÁ¡ÀÏ¶§ ÀûÀÌ °ø°İ
+				enemy->isAttack = true;
+				attackEnemy_2(enemy->getPosition());
+			}
 		}
 		else if (enemy->type == 3) {
-		  if (!enemy->isAttack &&                                            //falseì¼ë•Œ ì ì´ í”Œë ˆì´ì–´ì™€ ë§Œë‚¬ì„ë•Œ ê³µê²©
-		     sPlayer->getPositionX() > enemy->getPositionX() - 20 &&        // ì ì˜ ê³µê²©ë²”ìœ„ Â±20
-		     sPlayer->getPositionX() < enemy->getPositionX() + 20) {
-		     enemy->isAttack = true;
-		     attackEnemy_2(enemy->getPosition());
-		  }
+			if (!enemy->isAttack &&                                            //falseÀÏ¶§ ÀûÀÌ ÇÃ·¹ÀÌ¾î¿Í ¸¸³µÀ»¶§ °ø°İ
+				sPlayer->getPositionX() > enemy->getPositionX() - 20 &&        // ÀûÀÇ °ø°İ¹üÀ§ ¡¾20
+				sPlayer->getPositionX() < enemy->getPositionX() + 20) {
+				enemy->isAttack = true;
+				attackEnemy_2(enemy->getPosition());
+			}
 		}
 		else if (enemy->type == 4)
 		{
-			if (!enemy->isAttack &&                                            //falseì¼ë•Œ ì ì´ í”Œë ˆì´ì–´ì™€ ë§Œë‚¬ì„ë•Œ ê³µê²©
-				sPlayer->getPositionX() > enemy->getPositionX() - 30 &&        // ì ì˜ ê³µê²©ë²”ìœ„ Â±20
+			if (!enemy->isAttack &&                                            //falseÀÏ¶§ ÀûÀÌ ÇÃ·¹ÀÌ¾î¿Í ¸¸³µÀ»¶§ °ø°İ
+				sPlayer->getPositionX() > enemy->getPositionX() - 30 &&        // ÀûÀÇ °ø°İ¹üÀ§ ¡¾20
 				sPlayer->getPositionX() < enemy->getPositionX() + 30) {
 				enemy->isAttack = true;
-				 attackEnemy_2(enemy->getPosition());
+				attackEnemy_2(enemy->getPosition());
 			}
 		}
 	}//for vEnemy
-	for (SpriteEnemy* enemy2 : vEnemy2) {        //ë°±í„° forë¬¸
-	   if (!enemy2->isAttack && enemy2->getPositionY() < winSize.height * 3 / 4) {    //falseì´ê³ , 2/3ì§€ì ì¼ë•Œ ì ì´ ê³µê²©
-	      enemy2->isAttack = true;
-	      attackEnemy_3(enemy2->getPosition());
-	   }
+	for (SpriteEnemy* enemy2 : vEnemy2) {        //¹éÅÍ for¹®
+		if (!enemy2->isAttack && enemy2->getPositionY() < winSize.height * 3 / 4) {    //falseÀÌ°í, 2/3ÁöÁ¡ÀÏ¶§ ÀûÀÌ °ø°İ
+			enemy2->isAttack = true;
+			attackEnemy_3(enemy2->getPosition());
+		}
 	}
 
-	for (MiddleBoss* enemy3 : vMidBoss) {        //ë°±í„° forë¬¸
-	
-		if (!enemy3->isAttack && enemy3->getPositionY() < winSize.height&&shotcount==0)
+	for (MiddleBoss* enemy3 : vMidBoss) {        //¹éÅÍ for¹®
+
+		if (!enemy3->isAttack && enemy3->getPositionY() < winSize.height&&shotcount == 0)
 		{
 			shotcount++;
 			auto act = DelayTime::create(3.0f);
@@ -206,15 +206,15 @@ void HelloWorld::update(float fDelta) {
 			enemy3->runAction(rep1);
 			attackEnemy_5(enemy3->getPosition());
 			enemy3->isAttack = true;
-			midbossshotcount=0;
+			midbossshotcount = 0;
 		}
 
-		if (enemy3->isAttack && sPlayer->getPositionX() > enemy3->getPositionX() - 30 
-			&&sPlayer->getPositionX() < enemy3->getPositionX() + 30 && midbossshotcount >0){
+		if (enemy3->isAttack && sPlayer->getPositionX() > enemy3->getPositionX() - 30
+			&& sPlayer->getPositionX() < enemy3->getPositionX() + 30 && midbossshotcount >0){
 			attackEnemy_5(enemy3->getPosition());
 		}
 	}
-	for (Boss* enemy4 : vBoss) {        //ë°±í„° forë¬¸
+	for (Boss* enemy4 : vBoss) {        //¹éÅÍ for¹®
 		shotcount--;
 		if (!enemy4->isAttack && enemy4->getPositionY() < winSize.height&&shotcount == 0)
 		{
@@ -222,25 +222,25 @@ void HelloWorld::update(float fDelta) {
 			attackEnemy_5(enemy4->getPosition());
 			enemy4->isAttack = true;
 		}
-		
+
 		if (enemy4->isAttack && sPlayer->getPositionX() > enemy4->getPositionX() - 30
 			&& sPlayer->getPositionX() < enemy4->getPositionX() + 30){
 			attackEnemy_5(enemy4->getPosition());
 		}
 
-		if (enemy4->isAttack && (sPlayer->getPositionX() < winSize.width && sPlayer->getPositionX() > (winSize.width/(3/4)))
-			||(sPlayer->getPositionX() >0&&sPlayer->getPositionX()<winSize.width/8)){
+		if (enemy4->isAttack && (sPlayer->getPositionX() < winSize.width && sPlayer->getPositionX() > (winSize.width / (3 / 4)))
+			|| (sPlayer->getPositionX() >0 && sPlayer->getPositionX()<winSize.width / 8)){
 			shotcount++;
 			attackBoss1(enemy4->getPosition());
 		}
-		
+
 	}
-	
-#ifndef _TEST_DEBUG            //í…ŒìŠ¤íŠ¸ ë””ë²„ê¹…ìš©, í•´ë”íŒŒì¼ì˜ #define _TEST_DEBUGë¥¼ ì£¼ì„í•˜ë©´ ë””ë²„ê¹…í•œë‹¤.
-   //TODO: í…ŒìŠ¤íŠ¸ ë””ë²„ê¹…
-   intersectMissile();        //í”Œë ˆì´ì–´ ë¯¸ì‚¬ì¼ê³¼ ì ì˜ ì¶©ëŒì²´í¬
-   intersectPlayer();        //ì  ë¯¸ì‚¬ì¼ê³¼ í”Œë ˆì´ì–´ ì¶©ëŒ ì²´í¬
-   intersectEnemy();
+
+#ifndef _TEST_DEBUG            //Å×½ºÆ® µğ¹ö±ë¿ë, ÇØ´õÆÄÀÏÀÇ #define _TEST_DEBUG¸¦ ÁÖ¼®ÇÏ¸é µğ¹ö±ëÇÑ´Ù.
+	//TODO: Å×½ºÆ® µğ¹ö±ë
+	intersectMissile();        //ÇÃ·¹ÀÌ¾î ¹Ì»çÀÏ°ú ÀûÀÇ Ãæµ¹Ã¼Å©
+	intersectPlayer();        //Àû ¹Ì»çÀÏ°ú ÇÃ·¹ÀÌ¾î Ãæµ¹ Ã¼Å©
+	intersectEnemy();
 #endif
 }
 
@@ -251,128 +251,129 @@ void HelloWorld::attackEnemy_1(Vec2 pos) {
 		auto spr = Sprite::create("mis.png");
 		spr->setPosition(pos + Vec2(0, -30 * i));
 		this->addChild(spr);
-		vEMissile.pushBack(spr);                            //ë°±í„°ì— ì ì˜ ë¯¸ì‚¬ì¼ ì €ì¥
+		vEMissile.pushBack(spr);                            //¹éÅÍ¿¡ ÀûÀÇ ¹Ì»çÀÏ ÀúÀå
 
 		spr->runAction(Sequence::create(
 			DelayTime::create(0.1f * i),
 			MoveBy::create(3.0f, Vec2(-5 * (pos - sPlayer->getPosition()))),
-			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //ë¯¸ì‚¬ì¼ ì œê±° í•¨ìˆ˜ í˜¸ì¶œ
+			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //¹Ì»çÀÏ Á¦°Å ÇÔ¼ö È£Ãâ
 			NULL));
 	}
 }
 
 void HelloWorld::attackEnemy_2(Vec2 pos) {
-   SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
-   for (int i = 0; i < 5; i++) {                            //5ê°œì˜ ë¯¸ì‚¬ì¼ì„ ë°©ì‚¬í˜•ìœ¼ë¡œ ìœë‹¤
-      auto spr = Sprite::create("fire_1.png");
-      spr->setPosition(pos);
-      this->addChild(spr);
-      vEMissile.pushBack(spr);                            //ë°±í„°ì— ì ì˜ ë¯¸ì‚¬ì¼ ì €ì¥
+	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
+	for (int i = 0; i < 5; i++) {                            //5°³ÀÇ ¹Ì»çÀÏÀ» ¹æ»çÇüÀ¸·Î ½ğ´Ù
+		auto spr = Sprite::create("fire_1.png");
+		spr->setPosition(pos);
+		this->addChild(spr);
+		vEMissile.pushBack(spr);                            //¹éÅÍ¿¡ ÀûÀÇ ¹Ì»çÀÏ ÀúÀå
 
-      spr->runAction(Sequence::create(
-         MoveBy::create(3.0f, Vec2(-400 + i * 200, -winSize.height)),
-         CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //ë¯¸ì‚¬ì¼ ì œê±° í•¨ìˆ˜ í˜¸ì¶œ
-         NULL));
-   }
+		spr->runAction(Sequence::create(
+			MoveBy::create(3.0f, Vec2(-400 + i * 200, -winSize.height)),
+			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //¹Ì»çÀÏ Á¦°Å ÇÔ¼ö È£Ãâ
+			NULL));
+	}
 }
 
 void HelloWorld::attackEnemy_3(Vec2 pos) {
-   SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
-   for (int i = 0; i < 3; i++) {                            
-      auto spr = Sprite::create("fire_1.png");
-      spr->setPosition(pos + Vec2(0, -30 * i));
-      this->addChild(spr);
-      vEMissile.pushBack(spr);                            //ë°±í„°ì— ì ì˜ ë¯¸ì‚¬ì¼ ì €ì¥
+	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
+	for (int i = 0; i < 3; i++) {
+		auto spr = Sprite::create("fire_1.png");
+		spr->setPosition(pos + Vec2(0, -30 * i));
+		this->addChild(spr);
+		vEMissile.pushBack(spr);                            //¹éÅÍ¿¡ ÀûÀÇ ¹Ì»çÀÏ ÀúÀå
 
-      spr->runAction(Sequence::create(
-         DelayTime::create(0.1f * i),
-         MoveBy::create(1.5f, Vec2(0, -winSize.height)),
-         CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //ë¯¸ì‚¬ì¼ ì œê±° í•¨ìˆ˜ í˜¸ì¶œ
-         NULL));
-   }
+		spr->runAction(Sequence::create(
+			DelayTime::create(0.1f * i),
+			MoveBy::create(1.5f, Vec2(0, -winSize.height)),
+			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //¹Ì»çÀÏ Á¦°Å ÇÔ¼ö È£Ãâ
+			NULL));
+	}
 }
 
 void HelloWorld::attackEnemy_4(Vec2 pos) {
-   SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
-   for (int i = 0; i < 10; i++) {                            //5ê°œì˜ ë¯¸ì‚¬ì¼ì„ ë°©ì‚¬í˜•ìœ¼ë¡œ ìœë‹¤
-      auto spr = Sprite::create("fire_1.png");
-      spr->setPosition(pos + Vec2(0, -30 * i));
-      this->addChild(spr);
-      vEMissile.pushBack(spr);                            //ë°±í„°ì— ì ì˜ ë¯¸ì‚¬ì¼ ì €ì¥
+	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
+	for (int i = 0; i < 10; i++) {                            //5°³ÀÇ ¹Ì»çÀÏÀ» ¹æ»çÇüÀ¸·Î ½ğ´Ù
+		auto spr = Sprite::create("fire_1.png");
+		spr->setPosition(pos + Vec2(0, -30 * i));
+		this->addChild(spr);
+		vEMissile.pushBack(spr);                            //¹éÅÍ¿¡ ÀûÀÇ ¹Ì»çÀÏ ÀúÀå
 
-      spr->runAction(Sequence::create(
-         DelayTime::create(0.1f * i),
-         MoveBy::create(1.5f, Vec2(0, -winSize.height)),
-         CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //ë¯¸ì‚¬ì¼ ì œê±° í•¨ìˆ˜ í˜¸ì¶œ
-         NULL));
-   }
+		spr->runAction(Sequence::create(
+			DelayTime::create(0.1f * i),
+			MoveBy::create(1.5f, Vec2(0, -winSize.height)),
+			CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //¹Ì»çÀÏ Á¦°Å ÇÔ¼ö È£Ãâ
+			NULL));
+	}
 }
 
 
 void HelloWorld::attackEnemy_5(Vec2 pos) {
 	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
-	for (int j = 0; j < 3;j++)
-	{ 
-		for (int i = 0; i < 5; i++) {                            //5ê°œì˜ ë¯¸ì‚¬ì¼ì„ ë°©ì‚¬í˜•ìœ¼ë¡œ ìœë‹¤
+	for (int j = 0; j < 3; j++)
+	{
+		for (int i = 0; i < 5; i++) {                            //5°³ÀÇ ¹Ì»çÀÏÀ» ¹æ»çÇüÀ¸·Î ½ğ´Ù
 			auto spr = Sprite::create("fire_1.png");
 			spr->setPosition(pos + Vec2(0, -30 * i));
 			this->addChild(spr);
-			vEMissile.pushBack(spr);                            //ë°±í„°ì— ì ì˜ ë¯¸ì‚¬ì¼ ì €ì¥
+			vEMissile.pushBack(spr);                            //¹éÅÍ¿¡ ÀûÀÇ ¹Ì»çÀÏ ÀúÀå
 			auto seq = Sequence::create(
 				DelayTime::create(0.1f * i),
 				MoveBy::create(1.5f, Vec2(-400 + i * 200, -winSize.height)),
-				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //ë¯¸ì‚¬ì¼ ì œê±° í•¨ìˆ˜ í˜¸ì¶œ
+				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //¹Ì»çÀÏ Á¦°Å ÇÔ¼ö È£Ãâ
 				NULL);
 			spr->runAction(seq);
 		}
-		
+
 	}
-	midbossshotcount=0;
+	midbossshotcount = 0;
 }
 
 void HelloWorld::attackBoss1(Vec2 pos) {
 	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
 	for (int j = 0; j < 3; j++)
 	{
-		for (int i = 0; i < 1; i++) {                            //5ê°œì˜ ë¯¸ì‚¬ì¼ì„ ë°©ì‚¬í˜•ìœ¼ë¡œ ìœë‹¤
+		for (int i = 0; i < 1; i++) {                            //5°³ÀÇ ¹Ì»çÀÏÀ» ¹æ»çÇüÀ¸·Î ½ğ´Ù
 			auto spr = Sprite::create("fire_1.png");
 			spr->setPosition(pos + Vec2(0, -30 * i));
 			this->addChild(spr);
-			vEMissile.pushBack(spr);                            //ë°±í„°ì— ì ì˜ ë¯¸ì‚¬ì¼ ì €ì¥
+			vEMissile.pushBack(spr);                            //¹éÅÍ¿¡ ÀûÀÇ ¹Ì»çÀÏ ÀúÀå
 			auto seq = Sequence::create(
 				DelayTime::create(1.0f * i),
 				MoveBy::create(5.0f, Vec2(-5 * (pos - sPlayer->getPosition()))),
-				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //ë¯¸ì‚¬ì¼ ì œê±° í•¨ìˆ˜ í˜¸ì¶œ
+				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //¹Ì»çÀÏ Á¦°Å ÇÔ¼ö È£Ãâ
 				NULL);
 			spr->runAction(seq);
 		}
 	}
+	while (clk + 1 * 1000 > clock());
 }
 void HelloWorld::attackBoss2(Vec2 pos) {
 	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");
 	for (int j = 0; j < 3; j++)
 	{
-		for (int i = 0; i < 10; i++) {                            //10ê°œì˜ ë¯¸ì‚¬ì¼ì„ ë°©ì‚¬í˜•ìœ¼ë¡œ ìœë‹¤
+		for (int i = 0; i < 10; i++) {                            //10°³ÀÇ ¹Ì»çÀÏÀ» ¹æ»çÇüÀ¸·Î ½ğ´Ù
 			auto spr = Sprite::create("fire_1.png");
 			spr->setPosition(pos + Vec2(0, -30 * i));
 			this->addChild(spr);
-			vEMissile.pushBack(spr);                            //ë°±í„°ì— ì ì˜ ë¯¸ì‚¬ì¼ ì €ì¥
+			vEMissile.pushBack(spr);                            //¹éÅÍ¿¡ ÀûÀÇ ¹Ì»çÀÏ ÀúÀå
 			auto seq = Sequence::create(
 				DelayTime::create(0.01f * i),
 				MoveBy::create(1.5f, Vec2(-400 + i * 100, -winSize.height)),
-				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //ë¯¸ì‚¬ì¼ ì œê±° í•¨ìˆ˜ í˜¸ì¶œ
+				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //¹Ì»çÀÏ Á¦°Å ÇÔ¼ö È£Ãâ
 				NULL);
 			spr->runAction(seq);
 		}
-		for (int i = 0; i < 10; i++) {                            //10ê°œì˜ ë¯¸ì‚¬ì¼ì„ ë°©ì‚¬í˜•ìœ¼ë¡œ ìœë‹¤
+		for (int i = 0; i < 10; i++) {                            //10°³ÀÇ ¹Ì»çÀÏÀ» ¹æ»çÇüÀ¸·Î ½ğ´Ù
 			auto spr = Sprite::create("fire_1.png");
 			spr->setPosition(pos + Vec2(0, -30 * i));
 			this->addChild(spr);
-			vEMissile.pushBack(spr);                            //ë°±í„°ì— ì ì˜ ë¯¸ì‚¬ì¼ ì €ì¥
+			vEMissile.pushBack(spr);                            //¹éÅÍ¿¡ ÀûÀÇ ¹Ì»çÀÏ ÀúÀå
 			auto seq = Sequence::create(
 				DelayTime::create(0.01f * i),
 				MoveBy::create(1.5f, Vec2(400 + i * -100, winSize.height)),
-				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //ë¯¸ì‚¬ì¼ ì œê±° í•¨ìˆ˜ í˜¸ì¶œ
+				CallFuncN::create(CC_CALLBACK_1(HelloWorld::resetAttack, this)),        //¹Ì»çÀÏ Á¦°Å ÇÔ¼ö È£Ãâ
 				NULL);
 			spr->runAction(seq);
 		}
@@ -381,8 +382,8 @@ void HelloWorld::attackBoss2(Vec2 pos) {
 }
 
 void HelloWorld::resetAttack(Ref* pSender) {
-   auto spr = (Sprite*)pSender;
-   vEMissile.eraseObject(spr);        //ë°±í„°ì—ì„œ ë¯¸ì‚¬ì¼ ì œê±°
-   this->removeChild(spr);            //í™”ë©´ì—ì„œ ë¯¸ì‚¬ì¼ ì œê±°
+	auto spr = (Sprite*)pSender;
+	vEMissile.eraseObject(spr);        //¹éÅÍ¿¡¼­ ¹Ì»çÀÏ Á¦°Å
+	this->removeChild(spr);            //È­¸é¿¡¼­ ¹Ì»çÀÏ Á¦°Å
 }
 
