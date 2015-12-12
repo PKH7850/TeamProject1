@@ -180,6 +180,8 @@ void HelloWorld::charge(Vec2 onTouchBeganLocation)
 						this->unschedule(schedule_selector(HelloWorld::upGradeL4));
 
 						this->schedule(schedule_selector(HelloWorld::upGradeL3), 0.01, 1000, 0);
+						//this->removeChild(spr, true);
+						//CCCallFunc *cbTimerFinish = CCCallFunc::create(this, callfunc_selector(HelloWorld::setMissileInterface));
 					}
 				}
 			}
@@ -201,7 +203,6 @@ bool HelloWorld::onTouchBegan(Touch *touch, Event *unused_event) {
 	}
 	Vec2 location = touch->getLocation();
 	charge(location);
-
 	return true;
 }
 
