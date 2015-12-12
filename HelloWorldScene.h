@@ -5,7 +5,6 @@
 #include "SimpleAudioEngine.h"            //사운드 추가를 위한 헤더
 #include <ctime>
 #include <time.h>
-
 USING_NS_CC;
 using namespace CocosDenshion;            //사운드 추가를 위한 namespace 선언
 

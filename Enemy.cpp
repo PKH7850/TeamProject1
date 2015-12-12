@@ -347,7 +347,6 @@ void HelloWorld::attackBoss1(Vec2 pos) {
 			spr->runAction(seq);
 		}
 	}
-	while (clk + 1 * 1000 > clock());
 }
 void HelloWorld::attackBoss2(Vec2 pos) {
 	SimpleAudioEngine::getInstance()->playEffect("enemy_shoot.wav");

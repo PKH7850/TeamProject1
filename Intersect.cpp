@@ -1,4 +1,5 @@
 #include "HelloWorldScene.h"
+#include "EndScene.h"
 /*
 충돌체크
 1. 미사일 vs 적 -> 적 죽음
@@ -179,6 +180,8 @@ void HelloWorld::intersectMissile() {        //플레이어 미사일 vs 적
 						NULL));
 					vBoss.eraseObject(enemy);    //백터에서 적 제거
 					this->removeChild(enemy);    //적 스프라이트 제거
+					auto scene = TransitionFadeBL::create(1.0f, EndScene::createScene());
+					Director::getInstance()->replaceScene(scene);
 				}
 
 				vMissile.eraseObject(missile);    //백터에서 미사일 제거
