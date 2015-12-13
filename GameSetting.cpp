@@ -56,7 +56,7 @@ void HelloWorld::onEnter()
 	listener->onTouchEnded = [=](Touch* touch, Event* event)
 	{
 		auto target = static_cast<Sprite*>(event->getCurrentTarget());
-		log("jsprite onTouchesEnded..");
+		log("sprite onTouchesEnded..");
 		target->setOpacity(255);
 	};
 
@@ -97,7 +97,7 @@ void HelloWorld::initBG() {
 	auto node = ParallaxNode::create();
 	this->addChild(node);
 	node->runAction(RepeatForever::create(Sequence::create(
-		MoveBy::create(20.0f, Vec2(0, -720)),
+		MoveBy::create(100.0f, Vec2(0, -720)),
 		Place::create(Vec2::ZERO),
 		NULL)));
 
@@ -117,11 +117,13 @@ void HelloWorld::initBG() {
 		node->addChild(sprBG, 2, Vec2(0, 4), Vec2(0, i * 720));
 	}
 }
+
 void HelloWorld::initTitle() {
-	auto label = Label::createWithTTF("TeamProject", "Schwarzwald Regular.ttf", 140);
-	label->setTextColor(Color4B::BLUE);
-	label->enableOutline(Color4B::WHITE, 3);
-	label->setPosition(Vec2(winSize.width / 2, winSize.height / 2));
+	//auto label = Label::createWithTTF("TeamProject", "Marker Felt.ttf", 100);
+	auto label = LabelTTF::create("TeamProject", "Perfect Dark Zone.ttf", 100);
+	//label->setTextColor(Color4B::BLUE);
+	//label->enableOutline(Color4B::WHITE, 3);
+	label->setPosition(Vec2(500,500));
 	label->setTag(TAG_LABEL_TITLE);
 	this->addChild(label);
 }
@@ -136,94 +138,56 @@ void HelloWorld::setTitle() {
 	sPlayer->runAction(MoveBy::create(1.0f, Vec2(0, 100)));
 	sPlayer->setVisible(true);        //다시 시작시 죽은 플레이어 새로 생성
 
-	this->schedule(schedule_selector(HelloWorld::setMissile), 0.15f);    //플레이어가 미사일 쏘는 간격
+	this->schedule(schedule_selector(HelloWorld::setMissile), 0.1f);    //플레이어가 미사일 쏘는 간격
 	this->schedule(schedule_selector(HelloWorld::setEnemy), 1.0f);        //적 생성하는 간격
 	this->scheduleUpdate();
 }
 
-void HelloWorld::setChargeMissileInterface()
+void HelloWorld::setMissileInterface()
 {
-	CCSprite * chargeMissile = CCSprite::create("CloseNormal.png");
+	CCSprite *chargeMissile = CCSprite::create("chargeB.png");
 	pro1 = CCProgressTimer::create(chargeMissile);
-	//pro1->setScale(3);
+	pro1->setScale(1.5);
 	pro1->setTag(1000);
 	pro1->setPosition(Vec2(90, 100));
-	this->addChild(pro1, 1);
+	this->addChild(pro1, 1000);
 	pro1->setType(kCCProgressTimerTypeRadial);
-
-	CCProgressFromTo* ac1 = CCProgressFromTo::create(5.0f, 0, 100);
+	
+	CCProgressFromTo* ac1 = CCProgressFromTo::create(1.0f, 0, 100);
 	pro1->runAction(ac1);
 }
-
 void HelloWorld::charge(Vec2 onTouchBeganLocation)
 {
-
 	Vec2 location = onTouchBeganLocation;
 	auto spr = (Sprite*)this->getChildByTag(1000);
 	float percentage;
 	percentage = pro1->getPercentage();
-
 	if (location.x >= spr->getPosition().x){
 		if (location.y >= spr->getPosition().y){
 			if (location.x <= (spr->getPosition().x + spr->getContentSize().width)){
 				if (location.y <= (spr->getPosition().y + spr->getContentSize().height)){
-					if (percentage >= 100)
+//					if (percentage >= 100 && chargecount>0)
+					if (percentage >= 100 && chargecount>0)
 					{
-						spr->setScale(4);
-						this->unschedule(schedule_selector(HelloWorld::upGradeP2));
-						this->unschedule(schedule_selector(HelloWorld::upGradeF2));
-						this->unschedule(schedule_selector(HelloWorld::upGradeL2));
-						this->unschedule(schedule_selector(HelloWorld::upGradeP3));
-						this->unschedule(schedule_selector(HelloWorld::upGradeF3));
-						this->unschedule(schedule_selector(HelloWorld::upGradeL3));
-						this->unschedule(schedule_selector(HelloWorld::upGradeP4));
-						this->unschedule(schedule_selector(HelloWorld::upGradeF4));
-						this->unschedule(schedule_selector(HelloWorld::upGradeL4));
-
-						this->schedule(schedule_selector(HelloWorld::upGradeL3), 0.01, 1000, 0);
-						this->removeChild(spr, true);
-						//CCCallFunc *cbTimerFinish = CCCallFunc::create(this, callfunc_selector(HelloWorld::setMissileInterface));
+//						this->unschedule(schedule_selector(HelloWorld::upGradeP2));
+//						this->unschedule(schedule_selector(HelloWorld::upGradeF2));
+//						this->unschedule(schedule_selector(HelloWorld::upGradeL2));
+//						this->unschedule(schedule_selector(HelloWorld::upGradeP3));
+//						this->unschedule(schedule_selector(HelloWorld::upGradeF3));
+//						this->unschedule(schedule_selector(HelloWorld::upGradeL3));
+//						this->unschedule(schedule_selector(HelloWorld::upGradeP4));
+//						this->unschedule(schedule_selector(HelloWorld::upGradeF4));
+//						this->unschedule(schedule_selector(HelloWorld::upGradeL4));
+						this->schedule(schedule_selector(HelloWorld::ChargeMissile), 0.1, 10, 0);
+//						this->removeChild(spr);
+//						this->removeChild(pro1);
+//						chargecount--;
 					}
 				}
 			}
 		}
 	}
 }
-
-void HelloWorld::setMissileInterface()
-{
-	CCSprite * chargeMissile = CCSprite::create("cloud_00.png");
-	chargeMissile->setTag(1001);
-	chargeMissile->setPosition(Vec2(250, 100));
-	this->addChild(chargeMissile, 1);
-}
-
-void HelloWorld::missile(Vec2 onTouchBeganLocation)
-{
-	Vec2 location = onTouchBeganLocation;
-	auto spr = (Sprite*)this->getChildByTag(1001);
-
-	if (location.x >= spr->getPosition().x){
-		if (location.y >= spr->getPosition().y){
-			if (location.x <= (spr->getPosition().x + spr->getContentSize().width)){
-				if (location.y <= (spr->getPosition().y + spr->getContentSize().height)){
-					this->unschedule(schedule_selector(HelloWorld::upGradeP2));
-					this->unschedule(schedule_selector(HelloWorld::upGradeF2));
-					this->unschedule(schedule_selector(HelloWorld::upGradeL2));
-					this->unschedule(schedule_selector(HelloWorld::upGradeP3));
-					this->unschedule(schedule_selector(HelloWorld::upGradeF3));
-					this->unschedule(schedule_selector(HelloWorld::upGradeL3));
-					this->unschedule(schedule_selector(HelloWorld::upGradeP4));
-					this->unschedule(schedule_selector(HelloWorld::upGradeF4));
-					this->unschedule(schedule_selector(HelloWorld::upGradeL4));
-
-					this->schedule(schedule_selector(HelloWorld::missile), 0.01, 1000, 0);
-				}
-			}
-		}
-	}
-}
-
 
 bool HelloWorld::onTouchBegan(Touch *touch, Event *unused_event) {
 	if (isGameover) {
@@ -239,7 +203,7 @@ bool HelloWorld::onTouchBegan(Touch *touch, Event *unused_event) {
 	}
 	Vec2 location = touch->getLocation();
 	charge(location);
-	missile(location);
+
 	return true;
 }
 
@@ -253,7 +217,7 @@ void HelloWorld::resetPlayer() {
 
 	auto spr = Sprite::create();        //플레이어가 죽을때 애니메이션 생성
 	spr->setPosition(sPlayer->getPosition());
-	this->addChild(spr);
+	this->addChild(spr, 2);
 
 	auto ani = Animation::create();
 	ani->setDelayPerUnit(0.05f);
@@ -281,7 +245,7 @@ void HelloWorld::resetPlayer() {
 	this->unschedule(schedule_selector(HelloWorld::upGradeL2));
 	this->unschedule(schedule_selector(HelloWorld::upGradeL3));
 	this->unschedule(schedule_selector(HelloWorld::upGradeL4));
-	this->unschedule(schedule_selector(HelloWorld::upGradeSub));
+	this->unschedule(schedule_selector(HelloWorld::ChargeMissile));
 
 }
 
@@ -309,9 +273,9 @@ void HelloWorld::setGameover() {        //게임오버시 게임오버와 다시시작 타이틀�
 	label_1->runAction(Sequence::create(
 		Show::create(),
 		Spawn::create(
-		ScaleTo::create(1.0f, 1.0f),
-		RotateBy::create(1.0f, 360 * 5),
-		NULL),
+			ScaleTo::create(1.0f, 1.0f),
+			RotateBy::create(1.0f, 360 * 5),
+			NULL),
 		NULL));
 
 	auto label_2 = (Label*)this->getChildByTag(TAG_LABEL_GAMEOVER_2);
@@ -334,7 +298,7 @@ void HelloWorld::resetGameover()        //게임을 다시시작함
 	label_2->stopAllActions();
 	label_2->setScale(0.0f);
 	label_2->setVisible(false);
-
+	bossattack3 = 0;
 	for (SpriteEnemy* enemy : vEnemy) {
 		this->removeChild(enemy);
 	}
@@ -344,12 +308,12 @@ void HelloWorld::resetGameover()        //게임을 다시시작함
 	}
 	/*
 	for (MiddleBoss* enemy3 : vMidBoss){
-	this->removeChild(enemy3);
-	}*/
-	/*
+		this->removeChild(enemy3);
+	}
 	for (Boss* enemy4 : vBoss){
-	this->removeChild(enemy4);
-	}*/
+		this->removeChild(enemy4);
+	}
+	*/
 	for (Sprite* missile : vMissile) {
 		this->removeChild(missile);
 	}

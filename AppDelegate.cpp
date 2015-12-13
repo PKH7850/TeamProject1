@@ -15,9 +15,10 @@ AppDelegate::~AppDelegate()
 bool AppDelegate::applicationDidFinishLaunching() {
 	auto director = Director::getInstance();
 	auto glview = director->getOpenGLView();
+	auto frameSize = glview->getFrameSize();
 	if (!glview) {
-		glview = GLViewImpl::createWithRect("test", Rect(0, 0, 720, 1280));
-		//      glview->setFrameZoomFactor(0.5f);    //디버깅시 출력되는 창의 크기를 줄여준다.
+		glview = GLView::createWithRect("TeamProject", Rect(0, 0, 360, 720));
+	//	glview->setFrameZoomFactor(0.5f);    //디버깅시 출력되는 창의 크기를 줄여준다.
 		director->setOpenGLView(glview);
 	}
 
@@ -36,4 +37,5 @@ void AppDelegate::applicationDidEnterBackground() {
 
 void AppDelegate::applicationWillEnterForeground() {
 	Director::getInstance()->startAnimation();
+	Scene* runningScene = Director::getInstance()->getRunningScene();
 }
